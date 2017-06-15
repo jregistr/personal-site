@@ -1,4 +1,4 @@
-name := """portfolio-me"""
+name := """personal-site"""
 
 version := "1.0-SNAPSHOT"
 
