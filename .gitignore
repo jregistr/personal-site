@@ -94,5 +94,5 @@ public/fonts
 
 node_modules
 
-app-front/mix.js
-app-front/mix-manifest.json
+public/mix.js
+public/mix-manifest.json
