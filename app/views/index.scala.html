@@ -1,9 +1,9 @@
 @scripts = {
-
+    <script src="@routes.Assets.versioned("javascripts/main.js")"></script>
 }
 
-@sheets():Ht = {
-    <link />
+@sheets() = {
+    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/main.css")" />
 }
 
 @main(scripts)(sheets) {

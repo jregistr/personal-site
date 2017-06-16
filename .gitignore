@@ -88,5 +88,11 @@ server.pid
 
 public/javascripts
 public/stylesheets
+public/fonts
 
 .idea
+
+node_modules
+
+app-front/mix.js
+app-front/mix-manifest.json

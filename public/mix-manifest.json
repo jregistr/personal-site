@@ -1,0 +1,8 @@
+{
+  "/mix.js": "/mix.js",
+  "/stylesheets/main.css": "/stylesheets/main.css",
+  "/stylesheets/vendors.css": "/stylesheets/vendors.css",
+  "/javascripts/common-vendors.js": "/javascripts/common-vendors.js",
+  "/javascripts/main.js": "/javascripts/main.js",
+  "/javascripts/manifest.js": "/javascripts/manifest.js"
+}
