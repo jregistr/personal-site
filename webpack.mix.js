@@ -1,10 +1,8 @@
-//noinspection JSAnnotator
-const {mix} = require('laravel-mix');
-//noinspection JSAnnotator
-const {glob} = require('glob');
+const mix = require('laravel-mix');
+const glob = require('glob');
 
 mix.disableNotifications();
-mix.options({ publicPath : './public' });
+mix.options({ processCssUrls: false, publicPath : './public' });
 
 mix.webpackConfig({
     resolve: {
@@ -23,6 +21,8 @@ mix.webpackConfig({
 mix.autoload({
     jquery: ['$', 'window.jQuery', 'jQuery', 'bootstrap-sass']
 });
+
+mix.copy('node_modules/bootstrap-sass/assets/fonts', './public/fonts');
 
 glob.sync('./src/sass/*.sass').forEach(function (fn) {
     mix.sass(fn, './stylesheets');
