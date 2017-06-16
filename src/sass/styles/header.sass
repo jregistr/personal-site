@@ -1,20 +1,124 @@
 @import "variables"
+@import "mixins"
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables"
+
+body
+  font-family: 'Lato', arial, sans-serif
 
 .pf-header
-  background: $portfolio-bg-light
-  color: $portfolio-txt-bright-color
 
   .pf-header-top-box
-    height: 115px
+    background: $portfolio-bg-light
+    height: 150px
+    position: relative
 
   .pf-header-profile
     text-align: center
+    background: $portfolio-bg-medium
+    position: relative
+    color: $portfolio-txt-head-color
+    > div.container
+      padding: 90px 0 25px 0
+
     .profile-image
+      $width: 200
+      $height: $width
+      width: $width * 1px
+      height: $height * 1px
+      position: absolute
+      left: 50%
+      margin-left: (-$width / 2.0) * 1px
+      top: (-$height / 2.0) * 1px
+      +round-image(25)
     .profile-name
+      font-size: 60px
+      letter-spacing: 0.7px
+      font-family: 'Oswald', sans-serif
+      font-weight: bold
     .profile-title
-    .profile-bio
+      font-size: 30px
+      letter-spacing: 0.5px
+      font-family: 'Droid Sans', sans-serif
     .profile-socials
+      ul
+        margin-bottom: 0
+      +inline-list-style
+      ul li a
+        width: 50px
+        height: 50px
+        margin-left: 10px
+        font-size: 25px
+        color: $portfolio-txt-head-color
+        opacity: 0.7
+        +round-image(50)
+        +back-clip-padding
     .profile-contact-info
+      ul
+        margin-top: -2px
+      +inline-list-style
+      ul li a
+        color: $portfolio-txt-head-color
+        opacity: 0.85
+        font-size: 17px
+      i
+        font-size: 20px
+        opacity: 1
+
+    .profile-bio
+      font-size: 18px
+      max-width: 825px
+      margin: 0 auto
+      text-align: center
 
   .pf-header-navbar
     background: red
+
+
+
+@media screen and (max-width: $screen-sm-max)
+  .pf-header
+    .pf-header-top-box
+      padding-left: 0
+      padding-right: 0
+      height: 225px
+    .pf-header-profile
+      > div.container
+        padding: 200px 0 25px 0
+        margin-left: 0
+        margin-right: 0
+        width: 100% !important
+
+      .profile-name
+        font-size: 90px
+
+      .profile-title
+        font-size: 60px
+
+      .profile-socials ul li a
+        font-size: 45px
+
+      .profile-image
+        $width: 400
+        $height: $width
+        width: $width * 1px
+        height: $height * 1px
+        margin-left: (-$width / 2.0) * 1px
+        top: (-$height / 2.0) * 1px
+
+      .profile-bio
+        margin: 0 auto
+        width: 100% !important
+        max-width: none
+        font-size: 40px
+
+      .profile-contact-info
+        ul li a
+          font-size: 40px
+        i
+          font-size: 40px
+        li
+          width: 100%
+          display: inline-block
+          margin-bottom: 10px
+        li:last-child
+          margin-bottom: 0
