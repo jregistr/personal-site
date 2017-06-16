@@ -88,7 +88,9 @@ server.pid
 
 public/javascripts
 public/stylesheets
+public/images
 public/fonts
+public/files
 
 .idea
 

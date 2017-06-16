@@ -23,6 +23,7 @@ mix.autoload({
 });
 
 mix.copy('node_modules/bootstrap-sass/assets/fonts', './public/fonts');
+mix.copy('node_modules/font-awesome/fonts', './public/fonts/font-awesome');
 
 glob.sync('./src/sass/*.sass').forEach(function (fn) {
     mix.sass(fn, './stylesheets');
