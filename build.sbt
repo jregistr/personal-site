@@ -30,26 +30,26 @@ def runAfterNpmInstall(task: => Int)(implicit dir: File): Int = {
   }
 }
 
-def runDevBuild(implicit dir: File): Int = runAfterNpmInstall(Process(BuildUI.BuildDev) !)
+def runProdBuild(implicit dir: File): Int = runAfterNpmInstall(Process(BuildUI.BuildProd, dir) !)
+def runUICleanTask(dir: File): Int = Process(BuildUI.Clean, dir) !
 
-def runProdBuild(implicit dir: File): Int = runAfterNpmInstall(Process(BuildUI.BuildProd) !)
-
-lazy val devBuild = TaskKey[Unit]("Running development build")
 lazy val prodBuild = TaskKey[Unit]("Running production build")
-
-devBuild := {
-  implicit val frontRoot = baseDirectory.value / BuildUI.FrontEndFolder
-  if (runDevBuild != Success)
-    println
-  "There are errors in ui build"
-}
+lazy val cleanUpUI = TaskKey[Unit]("Running clean task")
 
 prodBuild := {
-  implicit val frontRoot = baseDirectory.value / BuildUI.FrontEndFolder
-  if (runProdBuild != Success)
+  val frontRoot = baseDirectory.value / BuildUI.FrontEndFolder
+  if (runProdBuild(frontRoot) != Success)
     throw new Exception("There were errors in ui build")
+}
+
+cleanUpUI := {
+  val frontRoot = baseDirectory.value / BuildUI.FrontEndFolder
+  println(frontRoot.getPath)
+  runUICleanTask(frontRoot)
 }
 
 dist <<= dist dependsOn prodBuild
 
 stage <<= stage dependsOn prodBuild
+
+clean <<= clean dependsOn cleanUpUI

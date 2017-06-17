@@ -17,6 +17,8 @@ object BuildUI {
 
   val BuildProd: String = mkRunCommand("npm run prod")
 
+  val Clean: String = mkRunCommand("npm run clean")
+
   def nodeModulesExists(dir: File): Boolean = (dir / FrontEndFolder / "node_modules").exists()
 
   def apply(base: File): PlayRunHook = {

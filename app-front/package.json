@@ -6,6 +6,7 @@
     "build": "ng build --extract-css --progress --output-path ../public/ui",
     "watch": "ng build -w --extract-css --progress --output-path ../public/ui",
     "prod": "ng build --output-hashing none --extract-css --progress --prod --aot --output-path ../public/ui",
+    "clean" : "node clean",
     "lint": "ng lint"
   },
   "private": true,
