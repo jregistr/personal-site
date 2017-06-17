@@ -18,8 +18,7 @@
       "prefix": "app",
       "styles": [
         "../node_modules/font-awesome/scss/font-awesome.scss",
-        "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss",
-        "assets/sass/portfolio.sass"
+        "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss"
       ],
       "scripts": [
          "../node_modules/jquery/dist/jquery.js",
