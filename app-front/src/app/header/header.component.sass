@@ -2,14 +2,14 @@
 @import "../../assets/sass/helpers/mixins"
 @import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables"
 
-.pf-header
+.header-outer
 
-  .pf-header-top-box
+  .header-top-box
     background: $portfolio-bg-light
     height: 150px
     position: relative
 
-  .pf-header-profile
+  .header-profile
     text-align: center
     background: $portfolio-bg-medium
     position: relative
@@ -68,12 +68,12 @@
       text-align: center
 
 @media screen and (max-width: $screen-sm-max)
-  .pf-header
-    .pf-header-top-box
+  .header-outer
+    .header-top-box
       padding-left: 0
       padding-right: 0
       height: 225px
-    .pf-header-profile
+    .header-profile
       > div.container
         padding: 200px 0 25px 0
         margin-left: 0
