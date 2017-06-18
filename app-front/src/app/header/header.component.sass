@@ -2,8 +2,7 @@
 @import "../../assets/sass/helpers/mixins"
 @import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables"
 
-.header-outer
-
+#header-outer
   .header-top-box
     background: $portfolio-bg-light
     height: 150px
@@ -66,3 +65,16 @@
       max-width: 825px
       margin: 0 auto
       text-align: center
+
+
+@media screen and (max-width: $screen-sm-max)
+  #header-outer
+    .header-profile
+      .profile-contact-info
+        ul
+          li
+            width: 100%
+            display: inline-block
+            margin-bottom: 5px
+          li:last-child
+            margin-bottom: 0
