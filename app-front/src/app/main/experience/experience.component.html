@@ -2,8 +2,12 @@
 
   <h2>Work Experiences</h2>
 
-  <div class="pf-section-content exp-work-experiences">
-
+  <div class="pf-section-content">
+    <div  class="exp-work-experiences">
+      <app-work [experience]="current"></app-work>
+      <app-work *ngFor="let exp of experiences" [experience]="exp"></app-work>
+    </div>
   </div>
 
 </div>
+

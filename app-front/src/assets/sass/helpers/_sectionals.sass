@@ -1,10 +1,10 @@
 @import "variables"
 @import "mixins"
+@import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables"
 
 .pf-section
   background-color: $portfolio-bg-segment
   width: 100%
-  min-height: 200px
   padding: 30px
   +border-radius-px(1px)
   +black-box-shadow
@@ -17,5 +17,9 @@
   > .pf-section-content
     margin: 10px auto
     width: 100%
+
+@media screen and (max-width: $screen-sm-max)
+  .pf-section
+    padding: 10px
 
 

@@ -1,5 +1,60 @@
 @import "../../../assets/sass/helpers/variables"
 @import "../../../assets/sass/helpers/mixins"
 @import "../../../assets/sass/helpers/sectionals"
+@import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables"
 
 .exp-work-experiences
+  padding: 0 25px
+  margin-left: 50px
+
+.exp-experience
+  display: block
+
+  > .exp-info
+    > .exp-experience-desc
+      text-align: left
+
+      h5
+        margin-left: 5px
+        color: $portfolio-txt-color-ternary
+
+    > .exp-experience-dates
+      text-align: right
+
+      h5
+        margin-right: 5px
+        color: $portfolio-txt-color-ternary
+
+  > .exp-story
+    margin-top: 0
+
+    div
+      padding-left: 40px
+      padding-right: 40px
+      p
+        overflow-wrap: break-word
+        font-size: 15px
+
+@media screen and (max-width: $screen-md-max)
+  .exp-work-experiences
+    padding: 0
+    margin-left: 0
+
+  .exp-story
+    div
+      padding-left: 20px
+      padding-right: 20px
+
+@media screen and (max-width: $screen-xs-max)
+  .exp-info
+    h5
+      margin-left: 0
+      margin-right: 0
+
+  .exp-experience
+    > .exp-story
+      margin-top: 0
+
+      div
+        padding-left: 10px
+        padding-right: 10px
