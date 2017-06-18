@@ -1,10 +1,16 @@
-<div class="navbar navbar-default pf-navbar hidden-xs">
+<div class="navbar navbar-default pf-navbar hidden-xs" [ngClass]="shouldStick ? 'navbar-fixed-top' : ''">
   <div class="container">
     <div class="">
       <ul class="nav navbar-nav">
-        <li class=""><a href="#">Work Experience</a></li>
-        <li class=""><a href="#">Featured Projects</a></li>
-        <li class=""><a href="#">My Github</a></li>
+        <li class="" [ngClass]="currentHighLight == 0 ? 'active' : ''">
+          <a href="#exp-experiences" (click)="onNavButtonClicked($event, '#exp-experiences')">Work Experience</a>
+        </li>
+        <li class="" [ngClass]="currentHighLight == 1 ? 'active' : ''">
+          <a href="#featured-projects" (click)="onNavButtonClicked($event, '#featured-projects')">Featured Projects</a>
+        </li>
+        <li class="" [ngClass]="currentHighLight == 2 ? 'active' : ''">
+          <a href="#my-github" (click)="onNavButtonClicked($event, '#my-github')">My Github</a>
+        </li>
       </ul>
     </div>
   </div>

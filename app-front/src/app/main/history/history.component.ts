@@ -3,11 +3,11 @@ import {Experience} from './interfaces';
 
 @Component({
   selector: 'app-experience',
-  templateUrl: './experience.component.html',
-  styleUrls: ['./experience.component.sass'],
+  templateUrl: './history.component.html',
+  styleUrls: ['./history.component.sass'],
   encapsulation : ViewEncapsulation.None
 })
-export class ExperienceComponent implements OnInit {
+export class HistoryComponent implements OnInit {
   experiences: Experience[] = [];
   current: Experience | null = null;
 

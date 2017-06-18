@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import 'jquery';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+  }
+
+  onBackToTop(event: any, id: string): void {
+    event.preventDefault();
+    $('html, body').animate({
+      scrollTop: $(id).offset().top
+    }, 500);
   }
 
 }
