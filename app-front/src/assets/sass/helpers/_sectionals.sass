@@ -1,0 +1,21 @@
+@import "variables"
+@import "mixins"
+
+.pf-section
+  background-color: $portfolio-bg-segment
+  width: 100%
+  min-height: 200px
+  padding: 30px
+  +border-radius-px(1px)
+  +black-box-shadow
+
+  > h2:first-of-type
+    color: $portfolio-txt-color-ternary
+    font-size: 25px
+    margin-top: 0
+
+  > .pf-section-content
+    margin: 10px auto
+    width: 100%
+
+

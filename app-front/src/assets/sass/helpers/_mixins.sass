@@ -1,7 +1,15 @@
+=border-radius-px($pixel)
+  -webkit-border-radius: $pixel
+  -moz-border-radius: $pixel
+  border-radius: $pixel
+
 =round-image($radius)
-  -webkit-border-radius:
-  -moz-border-radius:
-  border-radius: $radius * 1%
+  +border-radius-px($radius * 1%)
+
+=black-box-shadow($opacity: 0.2)
+  -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, $opacity)
+  -moz-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, $opacity)
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, $opacity)
 
 =back-clip-padding()
   background-clip: padding-box

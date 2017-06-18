@@ -1,6 +1,6 @@
-@import "variables"
-@import "mixins"
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables"
+@import "../../assets/sass/helpers/variables"
+@import "../../assets/sass/helpers/mixins"
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables"
 
 .pf-header
 
@@ -13,7 +13,7 @@
     text-align: center
     background: $portfolio-bg-medium
     position: relative
-    color: $portfolio-txt-head-color
+    color: $portfolio-txt-color-primary
     > div.container
       padding: 90px 0 10px 0
 
@@ -45,7 +45,7 @@
         height: 50px
         margin-left: 10px
         font-size: 25px
-        color: $portfolio-txt-head-color
+        color: $portfolio-txt-color-primary
         opacity: 0.7
         +round-image(50)
         +back-clip-padding
@@ -54,7 +54,7 @@
         margin-top: -2px
       +inline-list-style
       ul li a
-        color: $portfolio-txt-head-color
+        color: $portfolio-txt-color-primary
         opacity: 0.85
         font-size: 17px
       i
