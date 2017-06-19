@@ -37,14 +37,18 @@ export class NavbarComponent implements OnInit {
       };
     });
 
-    const menu: JQuery = $('.navbar.navbar-default.pf-navbar');
-    const origOffsetY = menu.offset().top;
-    const navHeight = menu.outerHeight();
+    const menu: JQuery = $('.navbar.navbar-default.pf-space-nav');
 
     win.on('scroll', () => {
+      const origOffsetY = menu.offset().top;
+      const navHeight = menu.outerHeight();
       const currentPosition = win.scrollTop();
       const currentPosOff = currentPosition + navHeight;
-      this.shouldStick = currentPosition >= origOffsetY;
+      if (this.shouldStick) {
+        this.shouldStick = currentPosOff >= origOffsetY + navHeight;
+      } else {
+        this.shouldStick = currentPosOff >= origOffsetY;
+      }
 
       let set = false;
       for (let i = 0; i < scrollToElements.length; i++) {

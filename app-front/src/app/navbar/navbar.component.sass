@@ -1,10 +1,14 @@
 @import "../../assets/sass/helpers/variables"
 
-.pf-navbar
+=styleNav()
   border-top: none
   border-left: none
   border-right: none
   border-radius: 0 !important
+  margin-bottom: 0
+
+.pf-navbar
+  +styleNav
   background: $portfolio-bg-dark
 
   ul.nav.navbar-nav
@@ -12,3 +16,11 @@
       color: $portfolio-txt-color-primary !important
     li.active a
       color: $portfolio-txt-color-secondary !important
+
+.pf-space-nav
+  visibility: hidden !important
+  +styleNav
+
+.pf-space-nav-contional-filler
+  visibility: hidden !important
+  +styleNav

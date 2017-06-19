@@ -10,40 +10,25 @@ import * as faker from 'faker';
 })
 export class HistoryComponent implements OnInit {
   occupations: Occupation[] = [];
-  current: Occupation | null = null;
 
   constructor() {
     const out: Occupation[] = [];
-    const cur: Occupation = {
-      company: 'CACI',
-      title: 'Software Engineer',
-      city: 'Rome',
-      state: 'NY',
-      startMonth: 'May',
-      startYear: 2016,
-      story: `Sartorial occaecat pinterest salvia kinfolk XOXO ut beard dolore. Gochujang pabst meditation lyft ut
-      jianbing deep v in fam woke selfies salvia skateboard. Jianbing godard exercitation venmo, pok pok minim kale
-      chips vexillologist do shabby chic kogi kitsch in ullamco. Bespoke selfies iPhone, wayfarers snackwave sartorial
-      viral mumblecore edison bulb retro portland try-hard coloring book. Cred ramps marfa esse green juice YOLO migas
-       poke gentrify celiac kombucha ut. Cloud bread PBR&B forage crucifix.`
-    };
 
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       out.push({
         company: faker.company.companyName(),
-        title: faker.company.bsNoun(),
+        title: faker.name.jobTitle(),
         city: faker.address.city(),
         state: faker.address.state(true),
         startMonth: faker.date.month(),
-        startYear: Math.floor(Math.random() * 2020) + 2017,
+        startYear: Math.floor(Math.random() * (2017 - 2001)) + 2000,
         endMonth: faker.date.month(),
-        endYear: Math.floor(Math.random() * 2020) + 2017,
-        story: faker.lorem.paragraph(10)
+        endYear: Math.floor(Math.random() * (2017 - 2001)) + 2000,
+        story: faker.lorem.paragraph(5)
       });
     }
 
     this.occupations = out;
-    this.current = cur;
   }
 
   ngOnInit() {

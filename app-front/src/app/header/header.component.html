@@ -3,41 +3,47 @@
 
   <div class="header-profile">
     <div class="container">
-      <img class="profile-image" src="/assets/files/profile.png" />
-      <h1 class="profile-name">Duo Reges</h1>
-      <h4 class="profile-title">Lorem ipsum dolor sit</h4>
+      <img class="profile-image" src="{{profile.personal.imageUrl}}"/>
+      <h1 class="profile-name">{{profile.personal.name}}</h1>
+      <h4 class="profile-title">{{profile.personal.title}}</h4>
       <div class="profile-socials">
         <ul>
-          <li><a href="https://www.linkedin.com/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-          <li><a href="https://github.com/jregistr" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></li>
-          <li><a href="https://twitter.com/" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+          <li *ngIf="profile.socials.linkedIn">
+            <a href="{{profile.socials.linkedIn}}" target="_blank">
+              <i class="fa fa-linkedin" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li *ngIf="profile.socials.github">
+            <a href="{{profile.socials.github}}" target="_blank">
+              <i class="fa fa-github" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li *ngIf="profile.socials.twitter">
+            <a href="{{profile.socials.twitter}}" target="_blank">
+              <i class="fa fa-twitter" aria-hidden="true"></i>
+            </a>
+          </li>
         </ul>
       </div>
       <div class="profile-contact-info">
         <ul>
           <li>
             <i class="fa fa-envelope" aria-hidden="true"></i>
-            <a href="mailto:chicharrones@@gmail.com">chicharrones@gmail.com</a>
+            <a href="mailto:{{profile.contact.email}}">{{profile.contact.email}}</a>
           </li>
           <li>
             <i class="glyphicon glyphicon-phone" aria-hidden="true"></i>
-            <a href="tel:1-555-555-5555">(555) 555 5555</a>
+            <a href="tel:{{profile.contact.phone}}">{{profile.contact.phone}}</a>
           </li>
-          <li>
+          <li *ngIf="profile.personal.resume">
             <i class="fa fa-download" aria-hidden="true"></i>
-            <a href="/assets/files/resume.pdf" target="_blank">Resume</a>
+            <a href="{{profile.personal.resume}}" target="_blank">Resume</a>
           </li>
         </ul>
       </div>
       <div class="profile-bio">
         <p>
-          Four loko chicharrones blue bottle cardigan, intelligentsia street art messenger
-          bag sriracha lumbersexual wolf VHS coloring book. Bushwick single-origin coffee
-          yuccie, raclette fam fashion axe put a bird on it vinyl messenger bag. Succulents
-          distillery unicorn retro, four dollar toast pinterest brunch man bun. YOLO mustache
-          selvage everyday carry. Roof party pour-over helvetica gastropub, +1 knausgaard hella
-          drinking vinegar sustainable. Unum, cum in voluptate sumus, alterum, cum in dolore, tertium hoc,
-          in quo nunc equidem sum, credo item vos, nec in dolore nec in voluptate.
+          {{profile.personal.aboutMe}}
         </p>
       </div>
     </div>

@@ -3,7 +3,6 @@
 
   <div class="pf-section-content">
     <div  class="hist-occupations">
-      <app-work [occupation]="current"></app-work>
       <app-work *ngFor="let occ of occupations" [occupation]="occ"></app-work>
     </div>
   </div>
