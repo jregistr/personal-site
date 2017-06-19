@@ -1,29 +1,20 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {Experience} from './interfaces';
+import {Occupation} from './occupation.interfaces';
+import * as faker from 'faker';
 
 @Component({
   selector: 'app-experience',
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.sass'],
-  encapsulation : ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None
 })
 export class HistoryComponent implements OnInit {
-  experiences: Experience[] = [];
-  current: Experience | null = null;
+  occupations: Occupation[] = [];
+  current: Occupation | null = null;
 
   constructor() {
-    const months = [
-      'January',
-      'Febuary',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July'
-    ];
-
-    const out: Experience[] = [];
-    const cur: Experience = {
+    const out: Occupation[] = [];
+    const cur: Occupation = {
       company: 'CACI',
       title: 'Software Engineer',
       city: 'Rome',
@@ -37,33 +28,21 @@ export class HistoryComponent implements OnInit {
        poke gentrify celiac kombucha ut. Cloud bread PBR&B forage crucifix.`
     };
 
-    function randomString(max: number, min: number = 5): string {
-      const letters = 'abcdefghijklmnopqrstuvwxyz';
-      let text = '';
-      const nMax = Math.floor(Math.random() * max) + min;
-      for (let i = 0; i < nMax; i++) {
-        text += letters[Math.floor(Math.random() * 26)];
-      }
-      return text;
-    }
-
     for (let i = 0; i < 2; i++) {
-      const startMonth = months[Math.floor(Math.random() * months.length)];
-      const endMonth = months[Math.floor(Math.random() * months.length)];
       out.push({
-        company: randomString(12),
-        title: randomString(15),
-        city: randomString(5),
-        state: randomString(5),
-        startMonth,
+        company: faker.company.companyName(),
+        title: faker.company.bsNoun(),
+        city: faker.address.city(),
+        state: faker.address.state(true),
+        startMonth: faker.date.month(),
         startYear: Math.floor(Math.random() * 2020) + 2017,
-        endMonth,
+        endMonth: faker.date.month(),
         endYear: Math.floor(Math.random() * 2020) + 2017,
-        story: randomString(350, 150)
+        story: faker.lorem.paragraph(10)
       });
     }
 
-    this.experiences = out;
+    this.occupations = out;
     this.current = cur;
   }
 

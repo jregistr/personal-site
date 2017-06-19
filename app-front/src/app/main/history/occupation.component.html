@@ -1,0 +1,18 @@
+<div *ngIf="occupation !== null" class="hist-occupation">
+  <div class="hist-occupation-info row">
+    <div class="hist-occupation-desc col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <h3>{{occupation.company}}</h3>
+      <h5>{{occupation.title}}</h5>
+    </div>
+    <div class="hist-occupation-dates col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <h3>{{occupation.city + ',' + occupation.state}}</h3>
+      <h5>{{occupation.startMonth + ' ' + occupation.startYear}}-
+        {{occupation.endMonth && occupation.endYear ? occupation.endMonth + ' ' + occupation.endYear : 'Current'}}</h5>
+    </div>
+  </div>
+  <div class="row hist-occupation-story">
+    <div class="col-xs-12">
+      <p>{{occupation.story}}</p>
+    </div>
+  </div>
+</div>

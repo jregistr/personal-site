@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
 
     const scrollToElements = [
       {
-        id: '#exp-experiences',
+        id: '#work-history',
         index: 0
       },
       {

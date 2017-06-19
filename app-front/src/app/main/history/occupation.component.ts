@@ -1,11 +1,11 @@
 import {Component, Input} from '@angular/core';
-import {Experience} from './interfaces';
+import {Occupation} from './occupation.interfaces';
 
 @Component({
   selector: 'app-work',
   styleUrls: ['./history.component.sass'],
-  templateUrl: './work.component.html'
+  templateUrl: './occupation.component.html'
 })
 export class WorkComponent {
-  @Input() experience: Experience | null = null;
+  @Input() occupation: Occupation | null = null;
 }

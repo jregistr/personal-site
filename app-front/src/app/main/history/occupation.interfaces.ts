@@ -1,4 +1,4 @@
-export interface Experience {
+export interface Occupation {
   company: string,
   title: string,
   city: string,
