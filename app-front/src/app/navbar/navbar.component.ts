@@ -70,7 +70,7 @@ export class NavbarComponent implements OnInit {
   onNavButtonClicked(event: any, id: string): void {
     event.preventDefault();
     $('html, body').animate({
-      scrollTop: $(id).offset().top
+      scrollTop: $(id).offset().top - 50
     }, 300);
   }
 
