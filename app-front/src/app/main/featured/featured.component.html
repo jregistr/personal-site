@@ -1,3 +1,77 @@
-<div id="featured-projects">
+<div id="featured-projects" class="pf-section-outer">
+  <div class="pf-section">
+    <h2>Featured Projects</h2>
+    <div class="pf-section-content">
+      <div class="featured-content">
 
+        <h3 *ngIf="!current" class="featured-title">{{fallBack.title}}</h3>
+        <h3 *ngIf="current" class="featured-title">
+          <a *ngIf="current.projectUrl" href="{{current.projectUrl}}">{{current.title}}</a>
+          <span *ngIf="!current.projectUrl">{{current.title}}</span>
+        </h3>
+
+        <p *ngIf="!current" class="featured-sub-title">{{fallBack.subTitle}}</p>
+        <p *ngIf="current" class="featured-sub-title">{{current.subTitle}}</p>
+
+        <div class="featured-display">
+          <img *ngIf="!current" class="featured-image" src="{{fallBack.imageUrl}}">
+
+          <div *ngIf="current" class="carousel slide featured-carousel-outer" id="featured-carousel">
+
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li class="active" data-slide-to="0" data-target="#featured-carousel"></li>
+              <li data-slide-to="1" data-target="#featured-carousel"></li>
+              <li data-slide-to="2" data-target="#featured-carousel"></li>
+            </ol>
+
+            <!-- Carousel body -->
+            <div class="carousel-inner">
+
+              <div class="item active" id="slide-1">
+                <img src="https://placeholdit.co//i/4096x2048?">
+                <div class="carousel-caption">
+                  <h4>Bootstrap 3</h4>
+                  <p>Learn how to build your awesome site with bootstrap 3.</p>
+                </div>
+              </div>
+
+              <div class="item" id="slide-2">
+                <img src="https://placeholdit.co//i/4096x2048?">
+                <div class="carousel-caption">
+                  <h4>Another thing</h4>
+                  <p>Learn a whole other thing. Cool huh.</p>
+                </div>
+              </div>
+
+              <div class="item" id="slide-3">
+                <img src="https://placeholdit.co//i/4096x2048?">
+                <div class="carousel-caption">
+                  <h4>This is the third one</h4>
+                  <p>This is the third thing going on. what's happening.</p>
+                </div>
+              </div>
+
+            </div><!-- End carousel inner -->
+
+            <!-- Carousel controls -->
+            <a class="left carousel-control" data-slide="prev" href="#featured-carousel">
+              <span class="icon-prev"></span>
+            </a>
+
+            <a class="right carousel-control" data-slide="next" href="#featured-carousel">
+              <span class="icon-next"></span>
+            </a>
+
+          </div><!-- End carousel outer -->
+        </div> <!-- End Featured Display -->
+
+        <div class="featured-description">
+          <p *ngIf="!current">{{fallBack.description}}</p>
+          <p *ngIf="current">{{current.description}}</p>
+        </div><!-- End description -->
+
+      </div>
+    </div>
+  </div>
 </div>

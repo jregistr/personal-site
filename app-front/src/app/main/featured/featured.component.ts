@@ -9,7 +9,9 @@ import * as faker from 'faker';
 })
 export class FeaturedComponent implements OnInit {
 
+  fallBack: Project;
   projects: Project[];
+  current: Project | null;
 
   constructor() {
     this.projects = [];
@@ -19,13 +21,23 @@ export class FeaturedComponent implements OnInit {
         title: faker.commerce.productName(),
         subTitle: faker.company.catchPhrase(),
         description: faker.lorem.paragraph(5),
-        imageUrl: faker.image.imageUrl(2048, 2048)
+        imageUrl: faker.image.imageUrl(2048, 2048, 'technics')
       };
       if (Math.random() > 0.2) {
         project.projectUrl = faker.internet.url()
       }
       this.projects.push(project);
     }
+
+    this.current = this.projects[0];
+
+    this.fallBack = {
+      title: 'Coming Soon',
+      subTitle: '',
+      description: 'Check back soon for featured projects update!',
+      imageUrl: '/assets/coming-soon.jpg'
+    };
+
   }
 
   ngOnInit() {
