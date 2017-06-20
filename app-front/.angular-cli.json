@@ -22,7 +22,8 @@
       ],
       "scripts": [
          "../node_modules/jquery/dist/jquery.js",
-        "../node_modules/bootstrap-sass/assets/javascripts/bootstrap.js"
+        "../node_modules/bootstrap-sass/assets/javascripts/bootstrap.js",
+        "../node_modules/github-card/dist/widget.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

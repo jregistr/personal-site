@@ -25,10 +25,6 @@ export class NavbarComponent implements OnInit {
       {
         id: '#featured-projects',
         index: 1
-      },
-      {
-        id: '#my-github',
-        index: 2
       }
     ].map(i => {
       return {

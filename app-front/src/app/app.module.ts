@@ -9,9 +9,9 @@ import {MainComponent} from './main/main.component';
 import {HistoryComponent} from './main/history/history.component';
 import {WorkComponent} from './main/history/occupation.component';
 import { FeaturedComponent } from './main/featured/featured.component';
-import { MygithubComponent } from './main/mygithub/mygithub.component';
 import { AsideComponent } from './main/aside/aside.component';
 import { TechnologiesComponent } from './main/aside/technologies/technologies.component';
+import { MygithubComponent } from './main/aside/mygithub/mygithub.component';
 
 @NgModule({
   declarations: [
@@ -23,9 +23,9 @@ import { TechnologiesComponent } from './main/aside/technologies/technologies.co
     HistoryComponent,
     WorkComponent,
     FeaturedComponent,
-    MygithubComponent,
     AsideComponent,
-    TechnologiesComponent
+    TechnologiesComponent,
+    MygithubComponent
   ],
   imports: [
     BrowserModule

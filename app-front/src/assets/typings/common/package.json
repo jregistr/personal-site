@@ -1,0 +1,9 @@
+{
+  "name": "@types/common-typings",
+  "version": "1.0.0",
+  "description": "Custom typings.",
+  "main": "",
+  "scripts": {},
+  "author": "Jeff Registre",
+  "license": "MIT"
+}
