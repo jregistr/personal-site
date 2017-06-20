@@ -1,2 +1,22 @@
+@import "../../../../assets/sass/helpers/variables"
+@import "../../../../assets/sass/helpers/mixins"
+@import "../../../../assets/sass/helpers/sectionals"
+@import "../../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables"
+
 .credits-outer
   .credits-content
+    color: $portfolio-txt-color-ternary
+    .credits-content-credits
+      font-size: 16px
+      +list-point-replace("\f0c1")
+      ul
+        padding-left: 20px
+        li a
+          color: $portfolio-txt-color-ternary
+
+  .credits-content-extras
+    p
+      font-size: 16px
+      color: $portfolio-txt-color-ternary
+
+
