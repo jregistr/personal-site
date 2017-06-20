@@ -1,0 +1,22 @@
+<div class="pf-section-outer tech-outer">
+  <div class="pf-section">
+    <h2>Technologies</h2>
+    <div class="pf-section-content">
+        <div class="tech-content">
+          <div class="tech-description">
+            <h5>{{techSummary.description}}</h5>
+          </div>
+          <div class="tech-techs">
+            <div *ngFor="let tech of techSummary.techs" class="tech-example">
+              <h4>{{tech.name}}</h4>
+              <ul *ngIf="tech.examples.length > 0">
+                <li *ngFor="let example of tech.examples">
+                  <a href="{{example.url}}" target="_blank">{{example.name}}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

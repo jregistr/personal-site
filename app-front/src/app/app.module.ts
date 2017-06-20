@@ -10,6 +10,8 @@ import {HistoryComponent} from './main/history/history.component';
 import {WorkComponent} from './main/history/occupation.component';
 import { FeaturedComponent } from './main/featured/featured.component';
 import { MygithubComponent } from './main/mygithub/mygithub.component';
+import { AsideComponent } from './main/aside/aside.component';
+import { TechnologiesComponent } from './main/aside/technologies/technologies.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { MygithubComponent } from './main/mygithub/mygithub.component';
     HistoryComponent,
     WorkComponent,
     FeaturedComponent,
-    MygithubComponent
+    MygithubComponent,
+    AsideComponent,
+    TechnologiesComponent
   ],
   imports: [
     BrowserModule

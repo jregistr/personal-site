@@ -34,3 +34,15 @@
   background: -ms-linear-gradient($direction, $from, $to)
   background: linear-gradient($direction, $from, $to)
 
+
+=list-point-replace($content)
+  ul
+    list-style-type: none
+    li
+      text-indent: -1em
+      &:before
+        font-family: 'FontAwesome'
+        content: $content
+        float: left
+        width: 1.4em
+
