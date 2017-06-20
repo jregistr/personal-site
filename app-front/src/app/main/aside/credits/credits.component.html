@@ -1,0 +1,24 @@
+<div *ngIf="creditSummary !== null" class="pf-section-outer credits-outer">
+
+  <div class="pf-section">
+    <h2>Credits</h2>
+    <div class="pf-section-content credits-content">
+      <div class="credits-content-credits">
+        <ul *ngIf="creditSummary.credits.length > 0">
+          <li *ngFor="let credit of creditSummary.credits">
+            <a href="{{credit.url}}">{{credit.name}}</a>
+          </li>
+        </ul>
+      </div>
+
+      <hr class="divider">
+
+      <div class="credits-content-extras">
+        <a class="btn btn-primary" href="https://github.com/jregistr">
+          <i class="fa fa-github fa-lg"></i>
+          <span>View on GitHub</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
