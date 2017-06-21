@@ -12,8 +12,11 @@ export class HeaderComponent implements OnInit {
   profile: Profile;
 
   constructor() {
+    const name = faker.name;
+    const f = name.firstName();
+    const l = name.lastName();
     const personal: Personal = {
-      name: faker.name.findName(),
+      name: faker.name.findName(f, l),
       title: faker.name.jobTitle(),
       imageUrl: faker.image.imageUrl(1024, 1024, 'business'),
       aboutMe: faker.lorem.paragraph(8),
@@ -21,7 +24,7 @@ export class HeaderComponent implements OnInit {
     };
     const contact: Contact = {
       phone: faker.phone.phoneNumber(),
-      email: faker.internet.email(personal.name)
+      email: faker.internet.email(f, l)
     };
     const socials: Socials = {
       linkedIn: faker.internet.url(),
