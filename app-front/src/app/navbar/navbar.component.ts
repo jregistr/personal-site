@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import 'jquery';
+import {NavListItem} from './navbar.interfaces';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +12,31 @@ export class NavbarComponent implements OnInit {
   currentHighLight: number = -1;
   shouldStick = false;
 
+  workNavItem: NavListItem = {
+    index: 0,
+    sectionId: '#work-history'
+  };
+
+  featuredNavItem: NavListItem = {
+    sectionId: '#featured-projects',
+    index: 1
+  };
+
+  techSumNavItem: NavListItem = {
+    sectionId: '#tech-my-summary',
+    index: 2
+  };
+
+  articlesNavItem: NavListItem = {
+    sectionId: '#articles',
+    index: 3
+  };
+
+  contactNavItem: NavListItem = {
+    sectionId: '#contact-me',
+    index: 4
+  };
+
   constructor() {
   }
 
@@ -18,21 +44,14 @@ export class NavbarComponent implements OnInit {
     const win = $(window);
 
     const scrollToElements = [
-      {
-        id: '#work-history',
-        index: 0
-      },
-      {
-        id: '#featured-projects',
-        index: 1
-      },
-      {
-        id: '#tech-my-summary',
-        index : 2
-      }
+      this.workNavItem,
+      this.featuredNavItem,
+      this.techSumNavItem,
+      this.articlesNavItem,
+      this.contactNavItem
     ].map(i => {
       return {
-        elem: $(i.id),
+        elem: $(i.sectionId),
         index: i.index
       };
     });

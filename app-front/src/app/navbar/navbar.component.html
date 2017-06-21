@@ -2,14 +2,20 @@
   <div class="container">
     <div class="">
       <ul class="nav navbar-nav">
-        <li class="" [ngClass]="currentHighLight == 0 ? 'active' : ''">
-          <a href="#work-history" (click)="onNavButtonClicked($event, '#work-history')">Work History</a>
+        <li class="" [ngClass]="currentHighLight == workNavItem.index ? 'active' : ''">
+          <a href="{{workNavItem.sectionId}}" (click)="onNavButtonClicked($event, workNavItem.sectionId)">Work History</a>
         </li>
-        <li class="" [ngClass]="currentHighLight == 1 ? 'active' : ''">
-          <a href="#featured-projects" (click)="onNavButtonClicked($event, '#featured-projects')">Featured Projects</a>
+        <li class="" [ngClass]="currentHighLight == featuredNavItem.index ? 'active' : ''">
+          <a href="{{featuredNavItem.sectionId}}" (click)="onNavButtonClicked($event, featuredNavItem.sectionId)">Featured Projects</a>
         </li>
-        <li [ngClass]="currentHighLight == 2 ? 'active' : ''">
-          <a href="#tech-my-summary" (click)="onNavButtonClicked($event, '#tech-my-summary')">My Tech Stack</a>
+        <li [ngClass]="currentHighLight == techSumNavItem.index ? 'active' : ''">
+          <a href="{{techSumNavItem.sectionId}}" (click)="onNavButtonClicked($event, techSumNavItem.sectionId)">My Stack</a>
+        </li>
+        <li [ngClass]="currentHighLight == articlesNavItem.index ? 'active' : ''">
+          <a href="{{articlesNavItem.sectionId}}" (click)="onNavButtonClicked($event, articlesNavItem.sectionId)">Articles</a>
+        </li>
+        <li [ngClass]="currentHighLight == contactNavItem.index ? 'active' : ''">
+          <a href="{{contactNavItem.sectionId}}" (click)="onNavButtonClicked($event, contactNavItem.sectionId)">Contact Me</a>
         </li>
       </ul>
     </div>
