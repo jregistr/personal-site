@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'app-mygithub',
   templateUrl: './mygithub.component.html',
-  styleUrls: ['./mygithub.component.sass']
+  styleUrls: ['./mygithub.component.sass'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MygithubComponent implements OnInit {
 
