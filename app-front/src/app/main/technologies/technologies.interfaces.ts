@@ -1,11 +1,6 @@
-export interface Example {
-  name: string,
-  url: string
-}
-
 export interface Technology {
   name: string,
-  examples: Example[]
+  description: string,
 }
 
 export interface TechnologySummary {

@@ -8,6 +8,9 @@
         <li class="" [ngClass]="currentHighLight == 1 ? 'active' : ''">
           <a href="#featured-projects" (click)="onNavButtonClicked($event, '#featured-projects')">Featured Projects</a>
         </li>
+        <li [ngClass]="currentHighLight == 2 ? 'active' : ''">
+          <a href="#tech-my-summary" (click)="onNavButtonClicked($event, '#tech-my-summary')">My Tech Stack</a>
+        </li>
       </ul>
     </div>
   </div>

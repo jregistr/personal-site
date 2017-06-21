@@ -25,6 +25,10 @@ export class NavbarComponent implements OnInit {
       {
         id: '#featured-projects',
         index: 1
+      },
+      {
+        id: '#tech-my-summary',
+        index : 2
       }
     ].map(i => {
       return {

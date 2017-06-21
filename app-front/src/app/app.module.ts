@@ -10,9 +10,8 @@ import {HistoryComponent} from './main/history/history.component';
 import {WorkComponent} from './main/history/occupation.component';
 import { FeaturedComponent } from './main/featured/featured.component';
 import { AsideComponent } from './main/aside/aside.component';
-import { TechnologiesComponent } from './main/aside/technologies/technologies.component';
+import { TechnologiesComponent } from './main/technologies/technologies.component';
 import { MygithubComponent } from './main/aside/mygithub/mygithub.component';
-import { ArticlesComponent } from './main/articles/articles.component';
 import { CreditsComponent } from './main/aside/credits/credits.component';
 
 @NgModule({
@@ -28,7 +27,6 @@ import { CreditsComponent } from './main/aside/credits/credits.component';
     AsideComponent,
     TechnologiesComponent,
     MygithubComponent,
-    ArticlesComponent,
     CreditsComponent
   ],
   imports: [
