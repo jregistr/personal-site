@@ -1,0 +1,22 @@
+<div class="pf-section-outer news-outer">
+  <div class="pf-section">
+    <h2>
+      News Feed
+      <a href="#" class="btn btn-sm btn-default" (click)="onRefreshNews($event)">
+        <span class="glyphicon glyphicon-refresh"></span>
+      </a>
+    </h2>
+    <div class="pf-section-content news-content" id="news-content" #content>
+      <div *ngFor="let newsItem of newsItems" class="news-item">
+        <h3><a href="{{newsItem.url}}">{{newsItem.title}}</a></h3>
+        <div>
+          <p>{{newsItem.shortDescription}}</p>
+          <h5><a href="{{newsItem.url}}"><i class="fa fa-link"></i>Continue reading</a></h5>
+        </div>
+      </div>
+    </div>
+    <div class="news-scroll-indicator" [ngClass]="showScrollIndicator ? '' : 'news-invisible'">
+      <i class="fa fa-arrow-circle-down fa-lg"></i>
+    </div>
+  </div>
+</div>

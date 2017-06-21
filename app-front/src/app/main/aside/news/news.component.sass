@@ -1,0 +1,35 @@
+@import "../../../../assets/sass/helpers/variables"
+@import "../../../../assets/sass/helpers/mixins"
+@import "../../../../assets/sass/helpers/sectionals"
+@import "../../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables"
+
+.news-outer
+  .news-content
+    margin-top: 0
+    max-height: 400px
+    overflow: scroll
+    .news-item
+      &:first-of-type
+        h3
+          margin-top: 0
+      i
+        margin-right: 5px
+      > h3:first-of-type
+        font-size: 20px
+        font-weight: bolder
+        margin-bottom: 5px
+        a
+          color: $portfolio-txt-color-ternary
+
+      h5 a
+        color: $portfolio-bg-medium
+      > div:first-of-type
+        p
+          color: $portfolio-txt-color-fourth
+          font-size: 16px
+
+  .news-scroll-indicator
+    text-align: center
+
+  .news-invisible
+    visibility: hidden
