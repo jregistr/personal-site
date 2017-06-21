@@ -1,8 +1,15 @@
 <div id="articles" class="pf-section-outer articles-outer">
   <div class="pf-section">
     <h2>Interesting Articles & Projects</h2>
-    <div class="pf-section-content min-height articles-content">
-
+    <div class="pf-section-content min-height articles-content" #content>
+      <article *ngFor="let article of articles" class="article">
+        <h3><a href="{{article.url}}">{{article.title}}</a></h3>
+        <p>{{article.summary}}</p>
+        <h5><a href="{{article.url}}"><i class="fa fa-link"></i><span>Continue reading</span></a></h5>
+      </article>
     </div>
+  </div>
+  <div class="article-scroll-indicator" [ngClass]="showScroll ? '' : 'invisible'">
+    <i class="fa fa-arrow-circle-down fa-lg"></i>
   </div>
 </div>
