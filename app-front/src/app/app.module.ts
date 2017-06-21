@@ -14,6 +14,8 @@ import { TechnologiesComponent } from './main/technologies/technologies.componen
 import { MygithubComponent } from './main/aside/mygithub/mygithub.component';
 import { CreditsComponent } from './main/aside/credits/credits.component';
 import { NewsComponent } from './main/aside/news/news.component';
+import { ArticlesComponent } from './main/articles/articles.component';
+import { ContactComponent } from './main/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { NewsComponent } from './main/aside/news/news.component';
     TechnologiesComponent,
     MygithubComponent,
     CreditsComponent,
-    NewsComponent
+    NewsComponent,
+    ArticlesComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule
