@@ -1,15 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
+import {Article} from './articles.interfaces';
+import * as faker from 'faker';
 
 @Component({
   selector: 'app-articles',
   templateUrl: './articles.component.html',
   styleUrls: ['./articles.component.sass']
 })
-export class ArticlesComponent implements OnInit {
+export class ArticlesComponent {
 
-  constructor() { }
+  articles: Article[] = [];
 
-  ngOnInit() {
+  constructor() {
+    const max = Math.floor(Math.random() * 9) + 1;
+    for (let i = 0; i < max; i++) {
+      this.articles.push({
+        title: faker.name.jobDescriptor(),
+        summary: faker.lorem.sentences(3),
+        url: faker.internet.url()
+      });
+    }
   }
 
 }
