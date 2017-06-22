@@ -1,5 +1,16 @@
 @import "variables"
+@import "mixins"
 
-ul.pf-list-chips
-  list-style-type: none
-
+.pf-socials
+  +inline-list-style
+  ul
+    margin-bottom: 0
+    li a
+      width: 50px
+      height: 50px
+      margin-left: 10px
+      font-size: 25px
+      color: $portfolio-txt-color-ternary
+      opacity: 0.9
+      +round-image(50)
+      +back-clip-padding

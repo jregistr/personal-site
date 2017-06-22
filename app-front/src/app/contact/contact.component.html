@@ -10,33 +10,45 @@
 
               <div class="col-lg-1 col-md-1 hidden-sm hidden-xs"></div>
               <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
-                <h2>Contact me today</h2>
-                <p>{{contactSummary.message}}</p>
-                <h5>Contact information</h5>
-                <ul class="list-unstyled">
-                  <li><a href="tel:{{contactSummary.phone}}">{{contactSummary.phone}}</a></li>
-                  <li><a href="mailto:{{contactSummary.email}}">{{contactSummary.email}}</a></li>
+                <h2 class="contact-title">Contact me today</h2>
+                <p class="contact-summary">{{contactSummary.message}}</p>
+                <h4>Contact information</h4>
+                <ul class="list-unstyled contact-info">
+                  <li>
+                    <a href="tel:{{contactSummary.phone}}">
+                      <span class="glyphicon glyphicon-phone"></span>
+                      {{contactSummary.phone}}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="mailto:{{contactSummary.email}}">
+                      <i class="fa fa-envelope"></i>
+                      {{contactSummary.email}}
+                    </a>
+                  </li>
                 </ul>
-                <ul>
-                  <li *ngIf="contactSummary.socials.linkedIn">
-                    <a href="{{contactSummary.socials.linkedIn}}" target="_blank">
-                      <i class="fa fa-linkedin" aria-hidden="true"></i>
-                    </a>
-                  </li>
-                  <li *ngIf="contactSummary.socials.github">
-                    <a href="{{contactSummary.socials.github}}" target="_blank">
-                      <i class="fa fa-github" aria-hidden="true"></i>
-                    </a>
-                  </li>
-                  <li *ngIf="contactSummary.socials.twitter">
-                    <a href="{{contactSummary.socials.twitter}}" target="_blank">
-                      <i class="fa fa-twitter" aria-hidden="true"></i>
-                    </a>
-                  </li>
-                </ul> <!-- End contact info list -->
+                <div class="pf-socials contact-socials">
+                  <ul>
+                    <li *ngIf="contactSummary.socials.linkedIn">
+                      <a href="{{contactSummary.socials.linkedIn}}" target="_blank">
+                        <i class="fa fa-linkedin" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                    <li *ngIf="contactSummary.socials.github">
+                      <a href="{{contactSummary.socials.github}}" target="_blank">
+                        <i class="fa fa-github" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                    <li *ngIf="contactSummary.socials.twitter">
+                      <a href="{{contactSummary.socials.twitter}}" target="_blank">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                  </ul> <!-- End social media -->
+                </div>
               </div><!-- End contact info column -->
               <div class="col-lg-1 col-md-1 hidden-sm hidden-xs"></div>
-              <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+              <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 contact-form-outer">
                 <form>
                   <div class="form-group">
                     <label class="control-label">Full Name</label>
@@ -54,6 +66,7 @@
                     <label class="control-label">Message</label>
                     <textarea class="form-control" placeholder="Enter your message here"></textarea>
                   </div>
+                  <button class="btn btn-default" type="button">Send Message</button>
                 </form>
               </div> <!-- End form column -->
 

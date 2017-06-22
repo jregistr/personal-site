@@ -17,9 +17,9 @@ export class ContactComponent implements OnInit {
       email: faker.internet.email(),
       phone: faker.phone.phoneNumber(),
       socials: {
-        github: Math.random() > .5 ? faker.internet.url() : undefined,
-        linkedIn: Math.random() > .5 ? faker.internet.url() : undefined,
-        twitter: Math.random() > .5 ? faker.internet.url() : undefined
+        github: Math.random() >= 0 ? faker.internet.url() : undefined,
+        linkedIn: Math.random() >= 0 ? faker.internet.url() : undefined,
+        twitter: Math.random() >= 0 ? faker.internet.url() : undefined
       }
     };
   }
