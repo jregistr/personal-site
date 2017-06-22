@@ -17,8 +17,9 @@
               maxlength="250"></textarea>
   </div>
   <h5>{{charactersLeft}} characters left</h5>
-  <re-captcha *ngIf="capchaSiteKey !== null" class="pull-right" [site_key]="capchaSiteKey"
+  <re-captcha *ngIf="capchaSiteKey !== null" class="" [site_key]="capchaSiteKey"
               (captchaResponse)="onHandleCapcha($event)" (captchaExpired)="onCapchaExpired()"></re-captcha>
-  <button class="btn btn-default pull-right" [disabled]="(!messageForm.valid) || capchaToken.length === 0"
-          type="submit">Send Message</button>
+  <button class="btn btn-default" [disabled]="(!messageForm.valid) || capchaToken.length === 0"
+          type="submit">Send Message
+  </button>
 </form>
