@@ -1,20 +1,24 @@
-<form>
+<form [formGroup]="messageForm" (ngSubmit)="onFormSubmit()">
   <div class="form-group">
-    <label class="control-label">Full Name</label>
-    <input class="form-control" type="text" name="fullname" placeholder="Your name">
+    <label class="control-label">Full Name *</label>
+    <input class="form-control" type="text" formControlName="name" placeholder="Your name" maxlength="30">
   </div>
   <div class="form-group">
-    <label class="control-label">Email</label>
-    <input class="form-control" type="email" name="email" placeholder="Your email address">
+    <label class="control-label">Email *</label>
+    <input class="form-control" type="email" formControlName="email" placeholder="Your email address" maxlength="100">
   </div>
   <div class="form-group">
-    <label class="control-label">Subject</label>
-    <input class="form-control" type="text" name="subject" placeholder="Message subject">
+    <label class="control-label">Subject *</label>
+    <input class="form-control" type="text" formControlName="subject" placeholder="Message subject" maxlength="100">
   </div>
   <div class="form-group">
-    <label class="control-label">Message</label>
-    <textarea class="form-control" placeholder="Enter your message here"></textarea>
+    <label class="control-label">Message *</label>
+    <textarea class="form-control" placeholder="Enter your message here" formControlName="message"
+              maxlength="250"></textarea>
   </div>
-  <h5>145 characters left</h5>
-  <button class="btn btn-default pull-right" type="submit">Send Message</button>
+  <h5>{{charactersLeft}} characters left</h5>
+  <re-captcha class="pull-right" [site_key]="'6LcIfyYUAAAAAElXyCyZOk2PsaWyn-LiDgnPOedc'"
+              (captchaResponse)="onHandleCapcha($event)" (captchaExpired)="onCapchaExpired()"></re-captcha>
+  <button class="btn btn-default pull-right" [disabled]="(!messageForm.valid) || capchaToken.length === 0"
+          type="submit">Send Message</button>
 </form>

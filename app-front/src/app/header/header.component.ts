@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
     const personal: Personal = {
       name: faker.name.findName(f, l),
       title: faker.name.jobTitle(),
-      imageUrl: faker.image.imageUrl(1024, 1024, 'business'),
+      imageUrl: 'http://placekitten.com/1024/1024',
       aboutMe: faker.lorem.paragraph(8),
       resume: faker.internet.url()
     };
