@@ -16,6 +16,7 @@ import { CreditsComponent } from './main/aside/credits/credits.component';
 import { NewsComponent } from './main/aside/news/news.component';
 import { ArticlesComponent } from './main/articles/articles.component';
 import { ContactComponent } from './contact/contact.component';
+import { MessageComponent } from './contact/message/message.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ContactComponent } from './contact/contact.component';
     CreditsComponent,
     NewsComponent,
     ArticlesComponent,
-    ContactComponent
+    ContactComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule
