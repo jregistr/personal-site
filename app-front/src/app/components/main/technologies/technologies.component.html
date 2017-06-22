@@ -1,0 +1,22 @@
+<div class="pf-section-outer tech-outer" id="tech-my-summary">
+  <div class="pf-section">
+    <h2>Languages and Frameworks</h2>
+    <div class="pf-section-content min-height">
+        <div *ngIf="techSummary" class="tech-content">
+          <div class="tech-description">
+            <h5>{{techSummary.description}}</h5>
+          </div>
+          <div class="row tech-techs">
+            <div *ngFor="let tech of techSummary.techs" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="pf-card">
+                <h3>{{tech.name}}</h3>
+                <div class="pf-card-body">
+                  <p>{{tech.description}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

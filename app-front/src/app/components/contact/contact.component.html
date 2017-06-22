@@ -1,0 +1,62 @@
+<div class="container-fluid contact-wrapper">
+  <div class="row">
+    <div class="col-lg-1 hidden-md hidden-sm hidden-xs"></div>
+    <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+      <div id="contact-me" class="pf-section-outer contact-outer">
+        <div class="pf-section">
+          <!--<h2>Contact me today</h2>-->
+          <div class="pf-section-content min-height contact-content">
+            <div class="row">
+
+              <div class="col-lg-1 col-md-1 hidden-sm hidden-xs"></div>
+              <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <h2 class="contact-title">Contact me today</h2>
+                <p class="contact-summary">{{messageData ? messageData.contactMe : ''}}</p>
+                <h4>Contact information</h4>
+                <ul *ngIf="contactInfo !== null" class="list-unstyled contact-info">
+                  <li>
+                    <a href="tel:{{contactInfo.phone}}">
+                      <span class="glyphicon glyphicon-phone"></span>
+                      {{contactInfo.phone}}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="mailto:{{contactInfo.email}}">
+                      <i class="fa fa-envelope"></i>
+                      {{contactInfo.email}}
+                    </a>
+                  </li>
+                </ul>
+                <div *ngIf="socials != null" class="pf-socials contact-socials">
+                  <ul>
+                    <li *ngIf="socials.linkedIn">
+                      <a href="{{socials.linkedIn}}" target="_blank">
+                        <i class="fa fa-linkedin" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                    <li *ngIf="socials.github">
+                      <a href="{{socials.github}}" target="_blank">
+                        <i class="fa fa-github" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                    <li *ngIf="socials.twitter">
+                      <a href="{{socials.twitter}}" target="_blank">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                  </ul> <!-- End social media -->
+                </div>
+              </div><!-- End contact info column -->
+              <div class="col-lg-1 col-md-1 hidden-sm hidden-xs"></div>
+              <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 contact-form-outer">
+                <app-message></app-message>
+              </div> <!-- End form column -->
+
+            </div> <!-- End contact row -->
+          </div> <!-- End contact content -->
+        </div>
+      </div> <!-- End contact outer -->
+    </div> <!-- End contact column -->
+    <div class="col-lg-1 hidden-md hidden-sm hidden-xs"></div>
+  </div> <!-- End outer row -->
+</div>

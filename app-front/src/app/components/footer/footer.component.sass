@@ -1,0 +1,39 @@
+@import "../../../assets/sass/helpers/variables"
+@import "../../../assets/sass/helpers/mixins"
+
+=text-a-tag()
+  color: $portfolio-txt-color-primary
+  margin-left: 2px
+  margin-right: 2px
+
+.ft-footer
+  margin-top: 30px
+  margin-bottom: 0
+  background: $portfolio-bg-dark-deep
+  padding-top: 15px
+  color: $portfolio-txt-color-primary
+  +border-radius-px(0.1)
+  +black-box-shadow(1.2)
+
+  .ft-footer-fork
+    > div:first-of-type a
+      font-size: 40px
+      color: $portfolio-txt-color-primary
+      opacity: 0.8
+    a
+      color: $portfolio-txt-color-primary
+
+  .ft-footer-cc
+    a
+      +text-a-tag
+    hr
+      margin-top: 10px
+      margin-bottom: 5px
+
+  .ft-footer-about
+    a
+      +text-a-tag
+      text-decoration: underline
+
+
+

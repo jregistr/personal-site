@@ -1,0 +1,21 @@
+@import "../../../../assets/sass/helpers/variables"
+@import "../../../../assets/sass/helpers/mixins"
+
+form
+  label
+    color: $portfolio-txt-color-ternary
+  textarea
+    height: 100px
+    resize: none
+  .form-control,
+  button
+    +border-radius-px(0px)
+    background: #FAFAFA
+
+  button.btn
+    background: $portfolio-bg-medium
+    color: $portfolio-txt-color-primary
+
+  .form-control.ng-touched.ng-invalid
+    border-left: 5px solid red
+

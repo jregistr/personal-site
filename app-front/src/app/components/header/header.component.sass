@@ -1,0 +1,72 @@
+@import "../../../assets/sass/helpers/variables"
+@import "../../../assets/sass/helpers/mixins"
+@import "../../../assets/sass/helpers/extras"
+@import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables"
+
+#header-outer
+  .header-top-box
+    background: $portfolio-bg-light
+    height: 150px
+    position: relative
+
+  .header-profile
+    text-align: center
+    background: $portfolio-bg-medium
+    position: relative
+    color: $portfolio-txt-color-primary
+    > div.container
+      padding: 90px 0 10px 0
+
+    .profile-image
+      $width: 200
+      $height: $width
+      width: $width * 1px
+      height: $height * 1px
+      position: absolute
+      left: 50%
+      margin-left: (-$width / 2.0) * 1px
+      top: (-$height / 2.0) * 1px
+      +round-image(25)
+    .profile-name
+      font-size: 60px
+      letter-spacing: 0.7px
+      font-family: 'Oswald', sans-serif
+      font-weight: bold
+    .profile-title
+      font-size: 30px
+      letter-spacing: 0.5px
+      font-family: 'Droid Sans', sans-serif
+    .profile-socials
+      ul li a
+        color: $portfolio-txt-color-primary
+        opacity: 0.7
+    .profile-contact-info
+      ul
+        margin-top: -2px
+      +inline-list-style
+      ul li a
+        color: $portfolio-txt-color-primary
+        opacity: 0.85
+        font-size: 17px
+      i
+        font-size: 20px
+        opacity: 1
+
+    .profile-bio
+      font-size: 18px
+      max-width: 825px
+      margin: 0 auto
+      text-align: center
+
+
+@media screen and (max-width: $screen-sm-max)
+  #header-outer
+    .header-profile
+      .profile-contact-info
+        ul
+          li
+            width: 100%
+            display: inline-block
+            margin-bottom: 5px
+          li:last-child
+            margin-bottom: 0

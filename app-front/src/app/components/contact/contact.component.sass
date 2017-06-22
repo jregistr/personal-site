@@ -1,0 +1,35 @@
+@import "../../../assets/sass/helpers/variables"
+@import "../../../assets/sass/helpers/mixins"
+@import "../../../assets/sass/helpers/sectionals"
+@import "../../../assets/sass/helpers/extras"
+@import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables"
+
+.contact-outer
+  .contact-content
+    .contact-title
+      margin-top: 5px
+      color: $portfolio-txt-color-ternary
+    .contact-summary
+      color: $portfolio-txt-color-fourth
+      font-size: 16px
+    .contact-info
+      a
+        color: $portfolio-txt-color-fourth
+        font-size: 16px
+    .contact-socials
+      ul:first-of-type
+        li a
+          margin-left: 0
+
+@media screen and (max-width: $screen-sm-max)
+  .contact-wrapper
+    padding-left: 0
+    padding-right: 0
+    .row
+      margin-left: 0 !important
+      margin-right: 0 !important
+
+@media screen and (max-width: $screen-xs-max)
+  .contact-col
+    padding-left: 0
+    padding-right: 0

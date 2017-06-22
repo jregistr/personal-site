@@ -4,21 +4,22 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {ReCaptchaModule} from 'angular2-recaptcha';
 
 import {AppComponent} from './app/app.component';
-import {HeaderComponent} from './header/header.component';
-import {NavbarComponent} from './navbar/navbar.component';
-import {FooterComponent} from './footer/footer.component';
-import {MainComponent} from './main/main.component';
-import {HistoryComponent} from './main/history/history.component';
-import {WorkComponent} from './main/history/occupation.component';
-import { FeaturedComponent } from './main/featured/featured.component';
-import { AsideComponent } from './main/aside/aside.component';
-import { TechnologiesComponent } from './main/technologies/technologies.component';
-import { MygithubComponent } from './main/aside/mygithub/mygithub.component';
-import { CreditsComponent } from './main/aside/credits/credits.component';
-import { NewsComponent } from './main/aside/news/news.component';
-import { ArticlesComponent } from './main/articles/articles.component';
-import { ContactComponent } from './contact/contact.component';
-import { MessageComponent } from './contact/message/message.component';
+import {HeaderComponent} from './components/header/header.component';
+import {NavbarComponent} from './components/navbar/navbar.component';
+import {FooterComponent} from './components/footer/footer.component';
+import {MainComponent} from './components/main/main.component';
+import {HistoryComponent} from './components/main/history/history.component';
+import {WorkComponent} from './components/main/history/occupation.component';
+import { FeaturedComponent } from './components/main/featured/featured.component';
+import { AsideComponent } from './components/main/aside/aside.component';
+import { TechnologiesComponent } from './components/main/technologies/technologies.component';
+import { MygithubComponent } from './components/main/aside/mygithub/mygithub.component';
+import { CreditsComponent } from './components/main/aside/credits/credits.component';
+import { NewsComponent } from './components/main/aside/news/news.component';
+import { ArticlesComponent } from './components/main/articles/articles.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { MessageComponent } from './components/contact/message/message.component';
+import {MainDatabaseService} from './app/main-database.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { MessageComponent } from './contact/message/message.component';
     ReactiveFormsModule,
     ReCaptchaModule
   ],
-  providers: [],
+  providers: [MainDatabaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

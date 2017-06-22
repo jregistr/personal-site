@@ -1,0 +1,55 @@
+@import "../../../../assets/sass/helpers/variables"
+@import "../../../../assets/sass/helpers/mixins"
+@import "../../../../assets/sass/helpers/sectionals"
+@import "../../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables"
+
+=image-style()
+  min-width: 100%
+  max-height: 400px
+  min-height: 256px
+  +border-radius-px(2px)
+
+.featured-content
+
+  .featured-title
+    text-align: center
+    color: $portfolio-txt-color-secondary
+    a
+      color: $portfolio-txt-color-secondary
+
+  .featured-sub-title
+    text-align: center
+    margin-bottom: 15px
+    color: $portfolio-txt-color-fourth
+    a
+      color: $portfolio-txt-color-fourth
+
+  .featured-display
+    .featured-image
+      +image-style
+
+    .featured-carousel-outer
+      margin-bottom: 15px
+      .carousel
+        .carousel-indicators
+          bottom: -35px
+          li
+            background: $portfolio-bg-medium
+            &.active
+              background: $portfolio-bg-dark-deep
+              border: 2px solid $portfolio-txt-color-secondary
+        .carousel-inner
+          margin-bottom: 35px
+        img
+          +image-style
+        .carousel-control
+          background: none
+          opacity: 1
+          &.left:hover
+            +linear-gradient(to left, rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.01), none)
+          &.right:hover
+            +linear-gradient(to right, rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.01), none)
+
+  .featured-description
+    color: $portfolio-txt-color-ternary
+    font-size: 16px
