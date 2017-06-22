@@ -9,6 +9,8 @@ import {ReCaptchaComponent} from 'angular2-recaptcha';
 })
 export class MessageComponent implements OnInit {
 
+  capchaSiteKey: string | null;
+
   messageForm: FormGroup = new FormGroup({
     name: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
     email: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
@@ -22,7 +24,7 @@ export class MessageComponent implements OnInit {
   @ViewChild(ReCaptchaComponent) captcha: ReCaptchaComponent;
 
   constructor() {
-
+    this.capchaSiteKey = '6LcIfyYUAAAAAElXyCyZOk2PsaWyn-LiDgnPOedc';
   }
 
   ngOnInit(): void {
