@@ -15,7 +15,6 @@ export class ArticlesComponent implements AfterContentInit, OnInit {
   showScroll = false;
 
   constructor(private database: MainDatabaseService) {
-    console.log(database.count);
     const max = Math.floor(Math.random() * 2) + 1;
     for (let i = 0; i < max; i++) {
       this.articles.push({

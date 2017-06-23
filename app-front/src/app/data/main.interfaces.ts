@@ -20,7 +20,7 @@ export interface Occupation {
   startMonth: string,
   startYear: number,
   story: string,
-  endMonth?: string,
+  endMonth: string,
   endYear?: number
 }
 

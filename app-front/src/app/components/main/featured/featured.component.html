@@ -19,7 +19,7 @@
         <div class="featured-display">
           <img *ngIf="!current" class="featured-image" src="{{fallBack.imageUrl}}">
 
-          <div *ngIf="current" class="featured-carousel-outer">
+          <div [ngClass]="current ? '' : 'hidden'" class="featured-carousel-outer">
             <div class="carousel slide" id="{{carouselId}}">
 
               <!-- Indicators -->

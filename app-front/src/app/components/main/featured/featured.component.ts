@@ -1,6 +1,5 @@
-import {AfterViewInit, Component, Input, NgZone, ChangeDetectorRef} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Input} from '@angular/core';
 import {Project} from '../../../data/main.interfaces';
-import * as faker from 'faker';
 import 'jquery';
 import {MainDatabaseService} from '../../../services/main-database.service';
 
@@ -12,37 +11,30 @@ import {MainDatabaseService} from '../../../services/main-database.service';
 export class FeaturedComponent implements AfterViewInit {
 
   @Input() carouselId: string;
-  fallBack: Project;
-  projects: Project[];
+
+  fallBack: Project = {
+    title: 'Coming Soon',
+    subTitle: '',
+    description: 'Check back soon for featured projects update!',
+    imageUrl: '/assets/coming-soon.jpg'
+  };
+
+  projects: Project[] = [];
   current: Project | null;
   private curIndex: number;
 
   constructor(private detector: ChangeDetectorRef, private database: MainDatabaseService) {
-    console.log(database.count);
-    this.projects = [];
-
-    const max = Math.floor(Math.random() * 5) + 2;
-    for (let i = 0; i < max; i++) {
-      const project: Project = {
-        title: faker.commerce.productName(),
-        subTitle: faker.company.catchPhrase(),
-        description: faker.lorem.paragraph(5),
-        imageUrl: 'http://placekitten.com/1600/800'
-      };
-      if (Math.random() > 0.2) {
-        project.projectUrl = faker.internet.url()
-      }
-      this.projects.push(project);
-    }
-    this.current = this.projects[0];
     this.curIndex = 0;
-
-    this.fallBack = {
-      title: 'Coming Soon',
-      subTitle: '',
-      description: 'Check back soon for featured projects update!',
-      imageUrl: '/assets/coming-soon.jpg'
-    };
+    database.projects.then(value => {
+      this.projects = value;
+      if (this.projects.length > 0) {
+        this.curIndex = 0;
+        this.current = this.projects[this.curIndex];
+      } else {
+        this.curIndex = 0;
+        this.current = null;
+      }
+    });
   }
 
   ngAfterViewInit() {
