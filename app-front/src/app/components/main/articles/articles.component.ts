@@ -1,6 +1,5 @@
 import {AfterContentInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Article} from '../../../data/main.interfaces';
-import * as faker from 'faker';
 import {MainDatabaseService} from '../../../services/main-database.service';
 
 @Component({
@@ -14,15 +13,11 @@ export class ArticlesComponent implements AfterContentInit, OnInit {
   articles: Article[] = [];
   showScroll = false;
 
-  constructor(private database: MainDatabaseService) {
-    const max = Math.floor(Math.random() * 2) + 1;
-    for (let i = 0; i < max; i++) {
-      this.articles.push({
-        title: faker.name.jobDescriptor(),
-        summary: faker.lorem.sentences(3),
-        url: faker.internet.url()
-      });
-    }
+  constructor(db: MainDatabaseService) {
+    db.articles.then(value => {
+      this.articles = value;
+      this.ngAfterContentInit();
+    });
   }
 
   ngAfterContentInit(): void {

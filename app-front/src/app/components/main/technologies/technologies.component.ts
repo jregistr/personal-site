@@ -1,33 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import {Technology, TechnologySummary} from '../../../data/main.interfaces';
-import * as faker from 'faker';
+import {Component} from '@angular/core';
+import {TechnologySummary} from '../../../data/main.interfaces';
+import {MainDatabaseService} from '../../../services/main-database.service';
 
 @Component({
   selector: 'app-technologies',
   templateUrl: './technologies.component.html',
   styleUrls: ['./technologies.component.sass']
 })
-export class TechnologiesComponent implements OnInit {
+export class TechnologiesComponent {
 
-  techSummary: TechnologySummary | null;
+  techSummary: TechnologySummary | null = null;
 
-  constructor() {
-    const description = faker.lorem.paragraph(3);
-    const techs: Technology[] = [];
-    for (let i = 0; i < 4; i++) {
-      techs.push({
-        name: faker.hacker.adjective(),
-        description: faker.lorem.paragraph(3)
-      })
-    }
-
-    this.techSummary = {
-      description,
-      techs
-    }
-  }
-
-  ngOnInit() {
+  constructor(db: MainDatabaseService) {
+    db.techSummary.then(value => {
+      this.techSummary = value;
+    });
   }
 
 }

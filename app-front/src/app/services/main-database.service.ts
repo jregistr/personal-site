@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BaseDatabaseService} from './BaseDatabaseService';
 import * as faker from 'faker';
-import {Occupation, Project} from '../data/main.interfaces';
+import {Article, Occupation, Project, Technology, TechnologySummary} from '../data/main.interfaces';
 
 @Injectable()
 export class MainDatabaseService extends BaseDatabaseService {
@@ -38,10 +38,36 @@ export class MainDatabaseService extends BaseDatabaseService {
       projects.push(project);
     }
 
+    const description = faker.lorem.paragraph(3);
+    const techs: Technology[] = [];
+    for (let i = 0; i < 4; i++) {
+      techs.push({
+        name: faker.hacker.adjective(),
+        description: faker.lorem.paragraph(3)
+      })
+    }
+
+    const articles: Article[] = [];
+    const maxArticles = Math.floor(Math.random() * 5) + 1;
+    for (let i = 0; i < maxArticles; i++) {
+      articles.push({
+        title: faker.name.jobDescriptor(),
+        summary: faker.lorem.sentences(3),
+        url: faker.internet.url()
+      });
+    }
+
+    const techSummary = {
+      description,
+      techs
+    };
+
     setTimeout(() => {
       resolve({
         occupations,
-        projects
+        projects,
+        techSummary,
+        articles
       });
     }, 1500);
   });
@@ -52,6 +78,14 @@ export class MainDatabaseService extends BaseDatabaseService {
 
   public projects: Promise<Project[]> = this.makeFromSource(this.source, value => {
     return value.projects;
+  });
+
+  public techSummary: Promise<TechnologySummary> = this.makeFromSource(this.source, value => {
+    return value.techSummary;
+  });
+
+  public articles: Promise<Article[]> = this.makeFromSource(this.source, value => {
+    return value.articles;
   });
 
 }
