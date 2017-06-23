@@ -9,9 +9,9 @@ import {ProfileDatabaseService} from '../../services/profile-database.service';
 })
 export class ContactComponent {
 
-  contactInfo: Contact | null;
-  messageData: Messages | null;
-  socials: Socials | null;
+  contactInfo: Contact | null = null;
+  messageData: Messages | null = null;
+  socials: Socials | null = null;
 
   constructor(profileDatabase: ProfileDatabaseService) {
     profileDatabase.contact.then(value => {

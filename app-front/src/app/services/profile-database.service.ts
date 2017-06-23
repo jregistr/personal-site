@@ -65,7 +65,7 @@ export class ProfileDatabaseService extends BaseDatabaseService {
           profile.socials = value;
         }
       });
-      return profile as Profile;
+      resolve(profile as Profile);
     }, reason => {
       reject(reason);
     });

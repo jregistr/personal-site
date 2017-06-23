@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Contact, Personal, Profile, Socials} from '../../data/profile.interfaces';
-import * as faker from 'faker';
+import {Profile} from '../../data/profile.interfaces';
+import {ProfileDatabaseService} from '../../services/profile-database.service';
 
 @Component({
   selector: 'app-header',
@@ -9,36 +9,12 @@ import * as faker from 'faker';
 })
 export class HeaderComponent implements OnInit {
 
-  profile: Profile | null;
+  profile: Profile | null = null;
 
-  constructor() {
-    const name = faker.name;
-    const f = name.firstName();
-    const l = name.lastName();
-    const personal: Personal = {
-      name: faker.name.findName(f, l),
-      title: faker.name.jobTitle(),
-      imageUrl: 'http://placekitten.com/1024/1024',
-      resumeUrl: faker.internet.url(),
-    };
-    const contact: Contact = {
-      phone: faker.phone.phoneNumber(),
-      email: faker.internet.email(f, l)
-    };
-    const socials: Socials = {
-      linkedIn: faker.internet.url(),
-      twitter: faker.internet.url(),
-      github: faker.internet.url()
-    };
-    this.profile = {
-      personal,
-      contact,
-      socials,
-      messages: {
-        aboutMe: faker.lorem.paragraph(6),
-        contactMe: faker.lorem.paragraph(2)
-      }
-    }
+  constructor(profileDb: ProfileDatabaseService) {
+    profileDb.profile.then(value => {
+      this.profile = value;
+    });
   }
 
   ngOnInit() {

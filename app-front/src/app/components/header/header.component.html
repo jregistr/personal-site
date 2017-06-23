@@ -3,10 +3,10 @@
 
   <div class="header-profile">
     <div class="container">
-      <img *ngIf="profile" class="profile-image" src="{{profile.personal.imageUrl}}"/>
-      <h1 *ngIf="profile" class="profile-name">{{profile.personal.name}}</h1>
-      <h4 *ngIf="profile" class="profile-title">{{profile.personal.title}}</h4>
-      <div *ngIf="profile" class="pf-socials profile-socials">
+      <img *ngIf="profile != null" class="profile-image" src="{{profile.personal.imageUrl}}"/>
+      <h1 *ngIf="profile != null" class="profile-name">{{profile.personal.name}}</h1>
+      <h4 *ngIf="profile != null" class="profile-title">{{profile.personal.title}}</h4>
+      <div *ngIf="profile != null" class="pf-socials profile-socials">
         <ul>
           <li *ngIf="profile.socials.linkedIn">
             <a href="{{profile.socials.linkedIn}}" target="_blank">
@@ -25,7 +25,7 @@
           </li>
         </ul>
       </div>
-      <div *ngIf="profile" class="profile-contact-info">
+      <div *ngIf="profile != null" class="profile-contact-info">
         <ul>
           <li>
             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -42,7 +42,7 @@
         </ul>
       </div>
       <div class="profile-bio">
-        <p>
+        <p *ngIf="profile != null">
           {{profile.messages.aboutMe}}
         </p>
       </div>
