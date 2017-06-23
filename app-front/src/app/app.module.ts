@@ -22,7 +22,8 @@ import {MessageComponent} from './components/contact/message/message.component';
 import {MainDatabaseService} from './services/main-database.service';
 import {AppSettingsDatabaseService} from './services/app-settings-database.service';
 import {ProfileDatabaseService} from './services/profile-database.service';
-import {SideDatabaseService} from './services/side-database.service';
+import {MiscDatabaseService} from './services/misc-database.service';
+import { WidgetComponent } from './components/main/aside/mygithub/widget/widget.component';
 
 @NgModule({
   declarations: [
@@ -41,14 +42,15 @@ import {SideDatabaseService} from './services/side-database.service';
     NewsComponent,
     ArticlesComponent,
     ContactComponent,
-    MessageComponent
+    MessageComponent,
+    WidgetComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     ReCaptchaModule
   ],
-  providers: [MainDatabaseService, AppSettingsDatabaseService, ProfileDatabaseService, SideDatabaseService],
+  providers: [MainDatabaseService, AppSettingsDatabaseService, ProfileDatabaseService, MiscDatabaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

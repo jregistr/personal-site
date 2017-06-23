@@ -1,31 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import {Credit, CreditSummary} from '../../../../data/side.interfaces';
-import * as faker from 'faker';
+import {Component} from '@angular/core';
+import {CreditSummary} from '../../../../data/side.interfaces';
+import {MiscDatabaseService} from '../../../../services/misc-database.service';
 
 @Component({
   selector: 'app-credits',
   templateUrl: './credits.component.html',
   styleUrls: ['./credits.component.sass']
 })
-export class CreditsComponent implements OnInit {
+export class CreditsComponent {
 
-  creditSummary: CreditSummary | null;
+  creditSummary: CreditSummary | null = null;
 
-  constructor() {
-    const credits: Credit[] = [];
-    for (let i = 0; i < 5; i++) {
-      credits.push({
-        name: faker.hacker.verb(),
-        url: faker.internet.url()
-      });
-    }
-    this.creditSummary = {
-      message: faker.lorem.paragraph(2),
-      credits
-    }
-  }
-
-  ngOnInit() {
+  constructor(db: MiscDatabaseService) {
+    db.credits.then(value => {
+      this.creditSummary = value;
+    });
   }
 
 }

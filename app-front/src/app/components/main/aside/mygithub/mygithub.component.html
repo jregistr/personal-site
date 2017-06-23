@@ -2,7 +2,8 @@
   <div class="pf-section">
     <h2>Github Profile</h2>
     <div class="pf-section-content mgh-content">
-      <div class="github-widget" [attr.data-username]="socials.github"></div>
+      <app-widget [githubUsername]="socials.github"></app-widget>
+      <!--<div on onload="console.log(this.attributeNames())" class="github-widget" [attr.data-username]="socials.github"></div>-->
     </div>
   </div>
 </div>

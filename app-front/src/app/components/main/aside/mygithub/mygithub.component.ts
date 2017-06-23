@@ -1,5 +1,9 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+  AfterContentChecked, AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges,
+  ViewEncapsulation
+} from '@angular/core';
 import {Socials} from '../../../../data/profile.interfaces';
+import {ProfileDatabaseService} from '../../../../services/profile-database.service';
 
 @Component({
   selector: 'app-mygithub',
@@ -7,17 +11,24 @@ import {Socials} from '../../../../data/profile.interfaces';
   styleUrls: ['./mygithub.component.sass'],
   encapsulation: ViewEncapsulation.None
 })
-export class MygithubComponent implements OnInit {
+export class MygithubComponent implements AfterViewInit, OnChanges {
 
-  socials: Socials | null;
+  socials: Socials | null = null;
 
-  constructor() {
-    this.socials = {
-      github : 'jregistr'
-    }
+  constructor(detector: ChangeDetectorRef, profileDb: ProfileDatabaseService) {
+    profileDb.socials.then(value => {
+      this.socials = value;
+    });
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    // console.log('fired');
+    // const start: any = window['start'];
+    // start();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+  //  console.log(changes);
   }
 
 }
