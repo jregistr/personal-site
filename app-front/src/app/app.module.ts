@@ -10,16 +10,19 @@ import {FooterComponent} from './components/footer/footer.component';
 import {MainComponent} from './components/main/main.component';
 import {HistoryComponent} from './components/main/history/history.component';
 import {WorkComponent} from './components/main/history/occupation.component';
-import { FeaturedComponent } from './components/main/featured/featured.component';
-import { AsideComponent } from './components/main/aside/aside.component';
-import { TechnologiesComponent } from './components/main/technologies/technologies.component';
-import { MygithubComponent } from './components/main/aside/mygithub/mygithub.component';
-import { CreditsComponent } from './components/main/aside/credits/credits.component';
-import { NewsComponent } from './components/main/aside/news/news.component';
-import { ArticlesComponent } from './components/main/articles/articles.component';
-import { ContactComponent } from './components/contact/contact.component';
-import { MessageComponent } from './components/contact/message/message.component';
-import {MainDatabaseService} from './app/main-database.service';
+import {FeaturedComponent} from './components/main/featured/featured.component';
+import {AsideComponent} from './components/main/aside/aside.component';
+import {TechnologiesComponent} from './components/main/technologies/technologies.component';
+import {MygithubComponent} from './components/main/aside/mygithub/mygithub.component';
+import {CreditsComponent} from './components/main/aside/credits/credits.component';
+import {NewsComponent} from './components/main/aside/news/news.component';
+import {ArticlesComponent} from './components/main/articles/articles.component';
+import {ContactComponent} from './components/contact/contact.component';
+import {MessageComponent} from './components/contact/message/message.component';
+import {MainDatabaseService} from './services/main-database.service';
+import {AppSettingsDatabaseService} from './services/app-settings-database.service';
+import {ProfileDatabaseService} from './services/profile-database.service';
+import {SideDatabaseService} from './services/side-database.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,7 @@ import {MainDatabaseService} from './app/main-database.service';
     ReactiveFormsModule,
     ReCaptchaModule
   ],
-  providers: [MainDatabaseService],
+  providers: [MainDatabaseService, AppSettingsDatabaseService, ProfileDatabaseService, SideDatabaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

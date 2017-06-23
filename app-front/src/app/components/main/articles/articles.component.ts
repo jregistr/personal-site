@@ -1,7 +1,7 @@
 import {AfterContentInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Article} from '../../../data/main.interfaces';
 import * as faker from 'faker';
-import {MainDatabaseService} from '../../../app/main-database.service';
+import {MainDatabaseService} from '../../../services/main-database.service';
 
 @Component({
   selector: 'app-articles',

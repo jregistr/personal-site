@@ -2,7 +2,7 @@ import {AfterViewInit, Component, Input, NgZone, ChangeDetectorRef} from '@angul
 import {Project} from '../../../data/main.interfaces';
 import * as faker from 'faker';
 import 'jquery';
-import {MainDatabaseService} from '../../../app/main-database.service';
+import {MainDatabaseService} from '../../../services/main-database.service';
 
 @Component({
   selector: 'app-featured',
