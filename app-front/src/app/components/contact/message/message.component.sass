@@ -16,6 +16,12 @@ form
     background: $portfolio-bg-medium
     color: $portfolio-txt-color-primary
 
-  .form-control.ng-touched.ng-invalid
-    border-left: 5px solid red
+  .form-control
+    &.ng-touched.ng-invalid
+      border-left: 5px solid red
+    &:not(.ng-touched),
+    &.ng-valid
+      border-left: 5px solid $portfolio-bg-medium
+
+
 
