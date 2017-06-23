@@ -35,15 +35,15 @@
             <i class="glyphicon glyphicon-phone" aria-hidden="true"></i>
             <a href="tel:{{profile.contact.phone}}">{{profile.contact.phone}}</a>
           </li>
-          <li *ngIf="profile.personal.resume">
+          <li *ngIf="profile.personal.resumeUrl">
             <i class="fa fa-download" aria-hidden="true"></i>
-            <a href="{{profile.personal.resume}}" target="_blank">Resume</a>
+            <a href="{{profile.personal.resumeUrl}}" target="_blank">Resume</a>
           </li>
         </ul>
       </div>
       <div class="profile-bio">
         <p>
-          {{profile.personal.messages.aboutMe}}
+          {{profile.messages.aboutMe}}
         </p>
       </div>
     </div>

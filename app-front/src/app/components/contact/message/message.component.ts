@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ReCaptchaComponent} from 'angular2-recaptcha';
+import {AppSettingsDatabaseService} from '../../../services/app-settings-database.service';
 
 @Component({
   selector: 'app-message',
@@ -9,7 +10,7 @@ import {ReCaptchaComponent} from 'angular2-recaptcha';
 })
 export class MessageComponent implements OnInit {
 
-  capchaSiteKey: string | null;
+  capchaSiteKey: string | null = null;
 
   messageForm: FormGroup = new FormGroup({
     name: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
@@ -23,8 +24,10 @@ export class MessageComponent implements OnInit {
   capchaToken = '';
   @ViewChild(ReCaptchaComponent) captcha: ReCaptchaComponent;
 
-  constructor() {
-    this.capchaSiteKey = '6LcIfyYUAAAAAElXyCyZOk2PsaWyn-LiDgnPOedc';
+  constructor(private appConfigDatabase: AppSettingsDatabaseService) {
+    appConfigDatabase.appSettings.then(value => {
+      this.capchaSiteKey = value.capchaPublicId
+    });
   }
 
   ngOnInit(): void {

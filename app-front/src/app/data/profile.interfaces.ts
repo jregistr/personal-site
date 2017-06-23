@@ -2,8 +2,7 @@ export interface Personal {
   name: string,
   title: string,
   imageUrl: string,
-  messages: Messages,
-  resume?: string
+  resumeUrl?: string
 }
 
 export interface Contact {
@@ -17,13 +16,14 @@ export interface Socials {
   twitter?: string
 }
 
-export interface Profile {
-  personal: Personal,
-  contact: Contact,
-  socials: Socials
-}
-
 export interface Messages {
   aboutMe: string,
   contactMe: string
+}
+
+export interface Profile {
+  personal: Personal,
+  messages: Messages,
+  contact: Contact,
+  socials: Socials
 }

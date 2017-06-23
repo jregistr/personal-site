@@ -19,11 +19,7 @@ export class HeaderComponent implements OnInit {
       name: faker.name.findName(f, l),
       title: faker.name.jobTitle(),
       imageUrl: 'http://placekitten.com/1024/1024',
-      resume: faker.internet.url(),
-      messages: {
-        aboutMe: faker.lorem.paragraph(6),
-        contactMe: faker.lorem.paragraph(2)
-      }
+      resumeUrl: faker.internet.url(),
     };
     const contact: Contact = {
       phone: faker.phone.phoneNumber(),
@@ -37,7 +33,11 @@ export class HeaderComponent implements OnInit {
     this.profile = {
       personal,
       contact,
-      socials
+      socials,
+      messages: {
+        aboutMe: faker.lorem.paragraph(6),
+        contactMe: faker.lorem.paragraph(2)
+      }
     }
   }
 

@@ -1,31 +1,30 @@
-import {Component, OnInit} from '@angular/core';
-import * as faker from 'faker';
+import {Component} from '@angular/core';
 import {Contact, Messages, Socials} from '../../data/profile.interfaces';
+import {ProfileDatabaseService} from '../../services/profile-database.service';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.sass']
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent {
 
   contactInfo: Contact | null;
   messageData: Messages | null;
   socials: Socials | null;
 
-  constructor() {
-    this.contactInfo = {
-      phone: faker.phone.phoneNumber(),
-      email: faker.internet.email()
-    };
+  constructor(profileDatabase: ProfileDatabaseService) {
+    profileDatabase.contact.then(value => {
+      this.contactInfo = value;
+    });
 
-    this.messageData = {
-      aboutMe: faker.lorem.sentences(3),
-      contactMe: faker.lorem.sentences(3)
-    }
-  }
+    profileDatabase.messages.then(value => {
+      this.messageData = value;
+    });
 
-  ngOnInit() {
+    profileDatabase.socials.then(value => {
+      this.socials = value;
+    });
   }
 
 }
