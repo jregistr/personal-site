@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {NewsItem} from '../../../../data/side.interfaces';
-import * as faker from 'faker';
 import 'jquery';
 import {MiscDatabaseService} from '../../../../services/misc-database.service';
 
