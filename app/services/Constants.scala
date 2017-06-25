@@ -1,5 +1,7 @@
 package services
 
+import play.api.libs.json.{JsBoolean, JsObject, JsString, JsValue}
+
 object Constants {
   val ServerConfig: (String, String) = ("/_server.config.json", "/_server.config.example.json")
 
@@ -12,5 +14,14 @@ object Constants {
 
   val CreditsConfig: (String, String) = ("/credits.config.json", "/credits.config.example.json")
 
-  val JsonContentType = "application/json"
+  def failMessage(message: String): JsObject = JsObject(Seq(
+    "success" -> JsBoolean(false),
+    "message" -> JsString(message)
+  ))
+
+  def succMessage(data: JsValue): JsObject = JsObject(Seq(
+    "success" -> JsBoolean(true),
+    "data" -> data
+  ))
+
 }

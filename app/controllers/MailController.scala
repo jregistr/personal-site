@@ -3,8 +3,9 @@ package controllers
 import javax.inject._
 
 import play.api.libs.concurrent.Execution.Implicits._
-import play.api.libs.json.Json
+import play.api.libs.json.JsNull
 import play.api.mvc._
+import services.Constants.{failMessage, succMessage}
 import services.MailerService
 
 import scala.concurrent.Future
@@ -15,10 +16,7 @@ class MailController @Inject()(mailerService: MailerService) extends Controller 
     val result: Future[Boolean] = mailerService.sendMail(name, email, subject, message)
     result
       .map(value => {
-        val out = Json.obj(
-          "result" -> value
-        )
-        if (value) Ok(out) else BadRequest(out)
+        if (value) Ok(succMessage(JsNull)) else BadRequest(failMessage("Did not successfully send message"))
       })
   }
 

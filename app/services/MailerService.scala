@@ -6,6 +6,7 @@ import javax.mail.internet.{InternetAddress, MimeMessage}
 import javax.mail.{Session, internet}
 
 import play.api.Logger
+import play.api.libs.json.JsObject
 import services.Constants.ServerConfig
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -23,9 +24,9 @@ class MailerService @Inject()(loader: ConfigLoader) extends Mailer {
 
   def sendMail(senderName: String, senderEmail: String, subject: String, content: String): Future[Boolean] =
     loader.loadObject(ServerConfig._1, Some(ServerConfig._2)).map {
-      case Success(config) =>
+      case Success(config: JsObject) =>
         val send: Try[Unit] = Try({
-          val appEmail = config.get("gEmail").getAsString
+          val appEmail = (config \ "gEmail").as[String]
 
           val props = System.getProperties
           props.put("mail.smtp.port", new Integer(587))
@@ -36,9 +37,9 @@ class MailerService @Inject()(loader: ConfigLoader) extends Mailer {
 
           val message = new MimeMessage(session)
           message.setFrom(new internet.InternetAddress(appEmail,
-            s"${config.get("appName").getAsString} -- $senderName"))
+            s"${(config \ "appName").as[String]} -- $senderName"))
 
-          message.addRecipient(RecipientType.TO, new InternetAddress(config.get("recipientEmail").getAsString))
+          message.addRecipient(RecipientType.TO, new InternetAddress((config \ "recipientEmail").as[String]))
           message.setSubject(subject)
 
           message.setContent(
@@ -52,7 +53,7 @@ class MailerService @Inject()(loader: ConfigLoader) extends Mailer {
 
           message.setHeader("label", "Personal Site")
           val transport = session.getTransport("smtp")
-          transport.connect("smtp.gmail.com", appEmail, config.get("gAppPassword").getAsString)
+          transport.connect("smtp.gmail.com", appEmail, (config \ "gAppPassword").as[String])
           transport.sendMessage(message, message.getAllRecipients)
           transport.close()
         })

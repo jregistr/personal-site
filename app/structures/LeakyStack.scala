@@ -1,10 +1,12 @@
 package structures
 
-class LeakyStack[T](private val maxLength: Int = 10) extends scala.collection.mutable.Stack[T] {
-  private var elems: List[T] = List()
+class LeakyStack[T](private val maxLength: Int = 10) extends java.util.Stack[T] {
 
-  override def push(elem: T): LeakyStack.this.type = {
-    elems = if (elems.length >= maxLength) elem :: elems.tail else elem :: elems
-    this
+  override def push(elem: T): T = {
+    if(elementData.length >= maxLength) {
+      removeElementAt(0)
+    }
+    super.push(elem)
+    elem
   }
 }

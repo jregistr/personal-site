@@ -14,7 +14,6 @@ libraryDependencies += ws
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0" % Test
 libraryDependencies += "javax.mail" % "javax.mail-api" % "1.5.6"
 libraryDependencies += "com.sun.mail" % "javax.mail" % "1.5.1"
-libraryDependencies += "com.google.code.gson" % "gson" % "2.8.1"
 
 unmanagedResourceDirectories in Compile += baseDirectory.value / "_data"
 
