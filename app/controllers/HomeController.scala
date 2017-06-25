@@ -17,9 +17,4 @@ class HomeController @Inject() (mailer: MailerService) extends Controller {
     Ok(views.html.index())
   }
 
-  def beam = Action {
-    mailer.sendMail("Burly Troll Man","jregistr@oswego.edu", "Ma money", "So much cool stuff! \nCool stuff!!!")
-    Ok("HI")
-  }
-
 }
