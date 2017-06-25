@@ -1,6 +1,8 @@
 package services
 
 object Constants {
+  val ServerConfig: (String, String) = ("/_server.config.json", "/_server.config.example.json")
+
   val AppConfig: (String, String) = ("/app.config.json", "/app.config.example.json")
   val ProfileConfig: (String, String) = ("/profile.config.json", "/profile.config.example.json")
   val WorkHistoryConfig: (String, String) = ("/work-history.config.json", "/work-history.config.example.json")
