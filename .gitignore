@@ -95,6 +95,8 @@ public/ui
 
 .idea
 
+_data/*.config.json
+
 node_modules
 
 public/mix.js

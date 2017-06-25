@@ -1,7 +1,6 @@
 {
   "name": "app-front",
   "version": "0.0.0",
-  "license": "MIT",
   "scripts": {
     "build": "ng build --extract-css --progress --output-path ../public/ui",
     "watch": "ng build -w --extract-css --progress --output-path ../public/ui",

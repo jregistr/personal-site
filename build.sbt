@@ -12,8 +12,11 @@ libraryDependencies += jdbc
 libraryDependencies += cache
 libraryDependencies += ws
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0" % Test
+libraryDependencies += "javax.mail" % "javax.mail-api" % "1.5.6"
+libraryDependencies += "com.sun.mail" % "javax.mail" % "1.5.1"
+libraryDependencies += "com.google.code.gson" % "gson" % "2.8.1"
 
-resourceDirectories in Compile += baseDirectory.value / "resources"
+unmanagedResourceDirectories in Compile += baseDirectory.value / "_data"
 
 PlayKeys.playRunHooks <+= baseDirectory.map(BuildUI.apply)
 

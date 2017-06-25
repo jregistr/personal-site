@@ -1,0 +1,9 @@
+{
+  "title": "The title of this app",
+  "appName": "Example Name",
+  "capchaPublicId" : "Create one of these at https://www.google.com/recaptcha/intro/",
+  "capchaSecret": "Create one of these at https://www.google.com/recaptcha/intro/",
+  "gEmail": "Gmail account to send emails from",
+  "gAppPassword" : "Visit this page for help on what this is. https://support.google.com/accounts/answer/185833?hl=en",
+  "recipientEmail": "The email to send messages to. example.me@someemail.com"
+}
