@@ -22,7 +22,7 @@ class MailerService @Inject()(loader: ConfigLoader) extends Mailer {
   val logger = Logger(getClass)
 
   def sendMail(senderName: String, senderEmail: String, subject: String, content: String): Future[Boolean] =
-    loader.load(ServerConfig._1, Some(ServerConfig._2)).map {
+    loader.loadObject(ServerConfig._1, Some(ServerConfig._2)).map {
       case Success(config) =>
         val send: Try[Unit] = Try({
           val appEmail = config.get("gEmail").getAsString
