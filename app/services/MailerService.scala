@@ -63,15 +63,6 @@ class MailerService @Inject()(loader: ConfigLoader) extends Mailer {
       }
     }
 
-  //    tryConfig match {
-  //      case Success(config) =>
-
-  //      case Failure(e) =>
-  //        logError(senderEmail, subject, e)
-  //        false
-  //    }
-
-
   private def logError(sender: String, subject: String, e: Throwable): Unit = {
     logger.error(s"Message by: $sender with subject: $subject failed to be sent", e)
   }
