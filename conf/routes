@@ -14,3 +14,4 @@ GET        /app/config/profile        controllers.ConfigDataController.profile
 GET        /app/config/credits        controllers.ConfigDataController.credits
 GET        /app/config/main           controllers.ConfigDataController.main
 
+GET        /app/config/news           controllers.ConfigDataController.news

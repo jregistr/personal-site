@@ -4,5 +4,6 @@
   "capchaSecret": "Create one of these at https://www.google.com/recaptcha/intro/",
   "gEmail": "<Used only on back-end>. Gmail account to send emails from",
   "gAppPassword" : "<Used only on back-end>. Visit this page for help on what this is. https://support.google.com/accounts/answer/185833?hl=en",
-  "recipientEmail": "<Used only on back-end>. The email to send messages to. example.me@someemail.com"
+  "recipientEmail": "<Used only on back-end>. The email to send messages to. example.me@someemail.com",
+  "newsApiKey" : "https://newsapi.org/ API key."
 }

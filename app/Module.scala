@@ -1,7 +1,7 @@
 import com.google.inject.AbstractModule
 import java.time.Clock
 
-import services.{ConfigLoader, JsonConfigLoader, Mailer, MailerService}
+import services._
 
 /**
  * This class is a Guice module that tells Guice how to bind several
@@ -16,10 +16,10 @@ import services.{ConfigLoader, JsonConfigLoader, Mailer, MailerService}
 class Module extends AbstractModule {
 
   override def configure(): Unit = {
-    // Use the system clock as the default implementation of Clock
     bind(classOf[Clock]).toInstance(Clock.systemDefaultZone)
     bind(classOf[ConfigLoader]).to(classOf[JsonConfigLoader])
     bind(classOf[Mailer]).to(classOf[MailerService])
+    bind(classOf[NewsService]).to(classOf[QueryingNewsService]).asEagerSingleton()
   }
 
 }
