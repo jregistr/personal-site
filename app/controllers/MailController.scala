@@ -13,12 +13,13 @@ class MailController @Inject()(mailerService: MailerService) extends Controller 
 
   def index(name: String, email: String, subject: String, message: String): Action[AnyContent] = Action.async {
     val result: Future[Boolean] = mailerService.sendMail(name, email, subject, message)
-    result.map{value =>
-      val out = Json.obj(
-        "result" -> value
-      )
-      if(value) Ok(out) else BadRequest(out)
-    }
+    result
+      .map(value => {
+        val out = Json.obj(
+          "result" -> value
+        )
+        if (value) Ok(out) else BadRequest(out)
+      })
   }
 
 }
