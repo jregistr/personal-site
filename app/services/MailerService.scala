@@ -7,65 +7,69 @@ import javax.mail.{Session, internet}
 
 import play.api.Logger
 
+import scala.concurrent.Future
 import scala.util.{Failure, Success, Try}
+import scala.concurrent.ExecutionContext.Implicits.global
 
 
 trait Mailer {
-  def sendMail(senderName: String, senderEmail: String, subject: String, content: String): Boolean
+  def sendMail(senderName: String, senderEmail: String, subject: String, content: String): Future[Boolean]
 }
 
 class MailerService @Inject()(loader: ConfigLoader) extends Mailer {
 
   val logger = Logger(getClass)
 
-  def sendMail(senderName: String, senderEmail: String, subject: String, content: String): Boolean = {
-    val tryConfig = loader.load("/app.config.json", Some("/app.config.example.json"))
-    println(getClass.getResource("/app.config.json"))
-    tryConfig match {
-      case Success(config) =>
-        val send: Try[Unit] = Try({
-          val appEmail = config.get("gEmail").getAsString
+  def sendMail(senderName: String, senderEmail: String, subject: String, content: String): Future[Boolean] =
+    loader.load("/app.config.json", Some("/app.config.example.json")).map { config =>
+      val send: Try[Unit] = Try({
+        val appEmail = config.get("gEmail").getAsString
 
-          val props = System.getProperties
-          props.put("mail.smtp.port", new Integer(587))
-          props.put("mail.smtp.auth", "true")
-          props.put("mail.smtp.starttls.enable", "true")
+        val props = System.getProperties
+        props.put("mail.smtp.port", new Integer(587))
+        props.put("mail.smtp.auth", "true")
+        props.put("mail.smtp.starttls.enable", "true")
 
-          val session = Session.getDefaultInstance(props, null)
+        val session = Session.getDefaultInstance(props, null)
 
-          val message = new MimeMessage(session)
-          message.setFrom(new internet.InternetAddress(appEmail,
-            s"${config.get("appName").getAsString} -- $senderName"))
+        val message = new MimeMessage(session)
+        message.setFrom(new internet.InternetAddress(appEmail,
+          s"${config.get("appName").getAsString} -- $senderName"))
 
-          message.addRecipient(RecipientType.TO, new InternetAddress(config.get("recipientEmail").getAsString))
-          message.setSubject(subject)
+        message.addRecipient(RecipientType.TO, new InternetAddress(config.get("recipientEmail").getAsString))
+        message.setSubject(subject)
 
-          message.setContent(
-            s"""
-               |<strong>From: $senderName</strong> <br>
-               |<strong>Email: $senderEmail</strong><br>
-               |<strong>Content:</strong>
-               |<p>$content</p>
-            """.stripMargin,
-            "text/html")
+        message.setContent(
+          s"""
+             |<strong>From: $senderName</strong> <br>
+             |<strong>Email: $senderEmail</strong><br>
+             |<strong>Content:</strong>
+             |<p>$content</p>
+                  """.stripMargin,
+          "text/html")
 
-          message.setHeader("label", "Personal Site")
-          val transport = session.getTransport("smtp")
-          transport.connect("smtp.gmail.com", appEmail, config.get("gAppPassword").getAsString)
-          transport.sendMessage(message, message.getAllRecipients)
-          transport.close()
-        })
-        send match {
-          case _: Success[_] => true
-          case Failure(e) =>
-            logError(senderEmail, subject, e)
-            false
-        }
-      case Failure(e) =>
-        logError(senderEmail, subject, e)
-        false
+        message.setHeader("label", "Personal Site")
+        val transport = session.getTransport("smtp")
+        transport.connect("smtp.gmail.com", appEmail, config.get("gAppPassword").getAsString)
+        transport.sendMessage(message, message.getAllRecipients)
+        transport.close()
+      })
+      send match {
+        case _: Success[_] => true
+        case Failure(e) =>
+          logError(senderEmail, subject, e)
+          false
+      }
     }
-  }
+
+  //    tryConfig match {
+  //      case Success(config) =>
+
+  //      case Failure(e) =>
+  //        logError(senderEmail, subject, e)
+  //        false
+  //    }
+
 
   private def logError(sender: String, subject: String, e: Throwable): Unit = {
     logger.error(s"Message by: $sender with subject: $subject failed to be sent", e)
