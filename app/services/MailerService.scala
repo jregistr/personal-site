@@ -6,10 +6,11 @@ import javax.mail.internet.{InternetAddress, MimeMessage}
 import javax.mail.{Session, internet}
 
 import play.api.Logger
+import services.Constants.AppConfig
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.util.{Failure, Success, Try}
-import scala.concurrent.ExecutionContext.Implicits.global
 
 
 trait Mailer {
@@ -21,7 +22,7 @@ class MailerService @Inject()(loader: ConfigLoader) extends Mailer {
   val logger = Logger(getClass)
 
   def sendMail(senderName: String, senderEmail: String, subject: String, content: String): Future[Boolean] =
-    loader.load("/app.config.json", Some("/app.config.example.json")).map { config =>
+    loader.load(AppConfig._1, Some(AppConfig._2)).map { config =>
       val send: Try[Unit] = Try({
         val appEmail = config.get("gEmail").getAsString
 

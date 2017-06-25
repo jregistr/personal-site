@@ -9,6 +9,7 @@ import services.{ConfigLoader, MailerService}
 
 import scala.concurrent.Future
 
+
 class ConfigDataController @Inject() (configLoader: ConfigLoader) extends Controller {
 
 //  def main = Action.async {
