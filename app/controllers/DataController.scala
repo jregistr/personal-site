@@ -1,6 +1,6 @@
 package controllers
 
-import com.google.gson.JsonObject
+import com.google.gson.{JsonElement, JsonObject}
 import play.api.Logger
 import play.api.mvc._
 
@@ -16,7 +16,7 @@ abstract class DataController(configLoader: ConfigLoader) extends Controller {
 
   protected val FailedMessage = "Failed to load data"
 
-  def futureTry(data: Future[Try[JsonObject]]): Future[Result] = {
+  def renderFutureData(data: Future[Try[JsonElement]]): Future[Result] = {
     data.map {
       case Success(result) => Ok(result.toString).as(JsonContentType)
       case Failure(t) =>
@@ -27,7 +27,7 @@ abstract class DataController(configLoader: ConfigLoader) extends Controller {
 
   def renderConfigObj(configFileName: String, fallBack: Option[String]): Action[AnyContent] = Action.async {
     val configFileFuture: Future[Try[JsonObject]] = configLoader.loadObject(configFileName, fallBack)
-    futureTry(configFileFuture)
+    renderFutureData(configFileFuture)
   }
 
 }
