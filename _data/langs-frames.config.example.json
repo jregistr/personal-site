@@ -1,0 +1,21 @@
+{
+  "description": "Possimus quasi rerum voluptatum. Ea blanditiis earum sit quod iure voluptatem vitae maiores. Ut nemo consequatur et quia laborum. Harum omnis ipsum ad consequuntur error dicta qui officiis et. Eveniet qui autem voluptas.",
+  "techs": [
+    {
+      "name": "Scala, Java, & Groovy",
+      "description": "Illum numquam accusantium est aliquam omnis accusamus veritatis adipisci. Dolorum officia ut enim dolorum consequatur sunt nostrum. Et ducimus quos cumque amet quod repellendus nesciunt non. Exercitationem voluptate tenetur et maxime ut repudiandae ratione sint ad"
+    },
+    {
+      "name": "TypeScript & NodeJs",
+      "description": "Qui sapiente aut sunt facere assumenda. Voluptatem ullam id vel deleniti at velit expedita. Nostrum minus nihil impedit et culpa similique blanditiis cum asperiores."
+    },
+    {
+      "name": "Sass, Angular",
+      "description": "Quasi tempora est odio. Iste dolorum quia consequatur id culpa facilis optio sapiente. Aut nostrum ut. Consequatur autem dolore aut corrupti rem."
+    },
+    {
+      "name": "SQL, Mongo",
+      "description": "Enim provident laborum mollitia explicabo. Eius fuga voluptatem ut. Quae voluptas aperiam quis minima deleniti. Ipsam eos cum dolores hic occaecati suscipit deserunt magnam"
+    }
+  ]
+}

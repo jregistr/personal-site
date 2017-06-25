@@ -1,0 +1,25 @@
+{
+  "message": "Reiciendis magnam laboriosam repudiandae. Sit et a iusto aut dolor. Omnis mollitia ut quis eligendi laboriosam nemo nisi. Minima tempore deleniti quis cupiditate nobis similique magnam. Eligendi eum aut omnis quidem illo voluptates voluptas sed atque.",
+  "credits" : [
+    {
+      "name": "Scala Play",
+      "url": "https://www.playframework.com/"
+    },
+    {
+      "name": "Angular",
+      "url": "https://angular.io/"
+    },
+    {
+      "name" : "TypeScript",
+      "url": "https://www.typescriptlang.org/"
+    },
+    {
+      "name": "Sass",
+      "url": "http://sass-lang.com/"
+    },
+    {
+      "name": "Bootstrap",
+      "url" : "http://getbootstrap.com/"
+    }
+  ]
+}
