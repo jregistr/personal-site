@@ -16,12 +16,32 @@ import scala.util.{Failure, Success, Try}
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
+/**
+  * Trait for the news service provider.
+  */
 trait NewsService {
+
+  /**
+    * @return Returns the current news list.
+    */
   def findArticles(): Future[Try[JsArray]]
 
+  /**
+    * Queries the news source for articles.
+    *
+    * @return - Returns the data that was retrieved from source.
+    */
   protected def queryArticles(): Future[Try[JsArray]]
 }
 
+/**
+  * An implementation of the [[NewsService]] that
+  *
+  * @param akkaSystem   - A dependency on the akka system to set up the [[ExecutionContext]] to run queries on.
+  * @param configLoader - A dependency on the config loader service.
+  * @param ws           - A dependency on the web service.
+  * @param lifecycle    - A dependency on the application life cycle.
+  */
 @Singleton
 class QueryingNewsService @Inject() private(akkaSystem: ActorSystem,
                                             configLoader: ConfigLoader,
@@ -45,6 +65,7 @@ class QueryingNewsService @Inject() private(akkaSystem: ActorSystem,
 
   private lazy val logger = Logger(getClass)
 
+  //lazyly load the server config file and retrieve the api key from it.
   private lazy val apiKeyFuture: Future[Option[String]] = configLoader.loadObject(ServerConfig._1, Some(ServerConfig._2)) map {
     case Success(jsObject) => Try((jsObject \ "newsApiKey").as[String]) match {
       case Success(key) => Some(key)
@@ -53,14 +74,28 @@ class QueryingNewsService @Inject() private(akkaSystem: ActorSystem,
     case _ => None
   }
 
+  // store the current news.
   private val store: ListBuffer[JsValue] = new ListBuffer[JsValue]
 
+  /**
+    * Creates a list of [[WSRequest]] objects for the set news sources.
+    *
+    * @param key - The api key to use.
+    * @return - Returns the list of configured request objects.
+    */
   private def apiRequests(key: String) = List(
     newsApiReq("hacker-news", key),
     newsApiReq("the-verge", key),
     newsApiReq("engadget", key)
   )
 
+  /**
+    * Configures a [[WSRequest]] object to query the api with.
+    *
+    * @param source - The source query parameter.
+    * @param key    - The key parameter.
+    * @return - A configured [[WSRequest]] object.
+    */
   private def newsApiReq(source: String, key: String): WSRequest = ws.url("https://newsapi.org/v1/articles")
     .withHeaders("Accept" -> "application/json")
     .withQueryString(
@@ -70,43 +105,60 @@ class QueryingNewsService @Inject() private(akkaSystem: ActorSystem,
     )
     .withFollowRedirects(true)
 
+  /**
+    * @inheritdoc
+    */
   override def findArticles(): Future[Try[JsArray]] = Future {
     Try(JsArray(store.reverse))
   }
 
+  /**
+    * @inheritdoc
+    */
   override protected def queryArticles(): Future[Try[JsArray]] = apiKeyFuture.map {
+    // If there is an api key available
     case Some(key) =>
+      //sends out the requests
       val requestFutures: List[Future[WSResponse]] = apiRequests(key).map(req => req.get())
+      // when all responses have come back
       val flattened: Future[List[WSResponse]] = Future.sequence(requestFutures)
 
-      val articlesFuture: Future[JsArray] = flattened map (list => {
-        val collected = list collect {
-          case response: WSResponse if (response.json \ "status").as[String] == "ok" =>
-            val articles: List[JsValue] = (response.json \ "articles").as[JsArray].value.filterNot(article => {
-              val title = article \ "title"
-              val description = article \ "description"
-              val url = article \ "url"
-              title.isInstanceOf[JsUndefined] || description.isInstanceOf[JsUndefined] || url.isInstanceOf[JsUndefined]
-            }).toList
+      val articlesFuture: Future[Try[JsArray]] = flattened map (list => {
+        Try({
+          val collected = list collect {
+            // filter out responses that don't have an "ok" status
+            case response: WSResponse if (response.json \ "status").as[String] == "ok" =>
+              val articles: List[JsValue] = (response.json \ "articles").as[JsArray].value.filterNot(article => {
+                val title = article \ "title"
+                val description = article \ "description"
+                val url = article \ "url"
+                // drop articles where title or description or url isn't present
+                title.isInstanceOf[JsUndefined] || description.isInstanceOf[JsUndefined] || url.isInstanceOf[JsUndefined]
+              }).toList
 
-            val top: List[JsValue] =
-              if (articles.size <= 3)
-                articles
-              else
-                articles.subList(0, 3).toList
-            top
-        }
-        JsArray(collected.flatten)
+              //take the top three or everything if there's 3 or less available.
+              val top: List[JsValue] =
+                if (articles.size <= 3)
+                  articles
+                else
+                  articles.subList(0, 3).toList
+              top
+          }
+          JsArray(collected.flatten)
+        })
       })
 
-      articlesFuture.map { array =>
-        Try(array)
-      }
+      articlesFuture
+
+      // no api key available, simply return the current state of the news store.
     case None => Future {
       Try(JsArray())
     }
   }.flatMap(identity)
 
+  /**
+    * Method to run to do an update on the current list of articles.
+    */
   private def updateArticlesList(): Unit = queryArticles() map {
     case Success(articles) =>
       val diff: Seq[JsValue] = articles.value.filterNot(queried => {
