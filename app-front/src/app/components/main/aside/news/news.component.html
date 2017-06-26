@@ -10,7 +10,7 @@
       <div *ngFor="let newsItem of newsItems" class="news-item">
         <h3><a href="{{newsItem.url}}">{{newsItem.title}}</a></h3>
         <div>
-          <p>{{newsItem.shortDescription}}</p>
+          <p>{{newsItem.description}}</p>
           <h5><a href="{{newsItem.url}}" target="_blank"><i class="fa fa-link"></i>Continue reading</a></h5>
         </div>
       </div>

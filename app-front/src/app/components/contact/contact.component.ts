@@ -16,6 +16,8 @@ export class ContactComponent {
   constructor(profileDatabase: ProfileDatabaseService) {
     profileDatabase.contact.then(value => {
       this.contactInfo = value;
+    }).catch(reason => {
+      console.log(reason);
     });
 
     profileDatabase.messages.then(value => {

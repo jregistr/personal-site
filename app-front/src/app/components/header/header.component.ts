@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   constructor(profileDb: ProfileDatabaseService) {
     profileDb.profile.then(value => {
       this.profile = value;
-    });
+    }).catch(reason => console.log(reason));
   }
 
   ngOnInit() {

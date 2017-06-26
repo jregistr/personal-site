@@ -27,7 +27,7 @@ export class MessageComponent implements OnInit {
   constructor(private appConfigDatabase: AppSettingsDatabaseService) {
     appConfigDatabase.appSettings.then(value => {
       this.capchaSiteKey = value.capchaPublicId
-    });
+    }).catch(reason => console.log(reason));
   }
 
   ngOnInit(): void {

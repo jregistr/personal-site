@@ -4,6 +4,8 @@
     <div class="pf-section-content min-height">
       <div class="featured-content">
 
+        <app-failed *ngIf="failed"></app-failed>
+
         <h3 *ngIf="!current" class="featured-title">{{fallBack.title}}</h3>
         <h3 *ngIf="current" class="featured-title">
           <a *ngIf="current.projectUrl" href="{{current.projectUrl}}">

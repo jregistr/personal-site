@@ -1,53 +1,23 @@
 import {Injectable} from '@angular/core';
-import * as faker from 'faker';
 import {Contact, Messages, Personal, Profile, Socials} from '../data/profile.interfaces';
 import {BaseDatabaseService} from './BaseDatabaseService';
 
 @Injectable()
 export class ProfileDatabaseService extends BaseDatabaseService {
 
-  private source: Promise<any> = new Promise((resolve, reject) => {
-    const name = faker.name;
-    const f = name.firstName();
-    const l = name.lastName();
-    setTimeout(() => {
-      resolve({
-        personal: {
-          name: faker.name.findName(f, l),
-          title: faker.name.jobTitle(),
-          imageUrl: 'http://placekitten.com/1024/1024',
-          resumeUrl: faker.internet.url()
-        },
-        messages: {
-          aboutMe: faker.lorem.paragraph(6),
-          contactMe: faker.lorem.paragraph(3)
-        },
-        contact: {
-          phone: faker.phone.phoneNumber(),
-          email: faker.internet.email(f, l)
-        },
-        socials: {
-          linkedIn: faker.lorem.word(),
-          github: 'jregistr',
-          twitter: faker.lorem.word()
-        }
-      });
-    }, 250);
-  });
-
-  public personal: Promise<Personal> = this.makeFromSource(this.source, value => {
+  public personal: Promise<Personal> = this.makeFromSource(value => {
     return value.personal as Personal;
   });
 
-  public messages: Promise<Messages> = this.makeFromSource(this.source, value => {
+  public messages: Promise<Messages> = this.makeFromSource( value => {
     return value.messages as Messages;
   });
 
-  public contact: Promise<Contact> = this.makeFromSource(this.source, value => {
+  public contact: Promise<Contact> = this.makeFromSource(value => {
     return value.contact as Contact;
   });
 
-  public socials: Promise<Socials> = this.makeFromSource(this.source, value => {
+  public socials: Promise<Socials> = this.makeFromSource(value => {
     return value.socials as Socials;
   });
 
@@ -70,5 +40,9 @@ export class ProfileDatabaseService extends BaseDatabaseService {
       reject(reason);
     });
   });
+
+  constructor() {
+    super('/app/config/profile');
+  }
 
 }

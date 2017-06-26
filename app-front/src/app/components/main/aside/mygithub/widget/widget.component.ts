@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-widget',
@@ -7,12 +7,12 @@ import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 export class WidgetComponent implements AfterViewInit {
 
   @Input() githubUsername: string;
-
-  constructor() {
-  }
+  @ViewChild('githubWidget') widgetElem: ElementRef;
 
   ngAfterViewInit(): void {
-    (window['start'])();
+    if (this.widgetElem.nativeElement.childElementCount === 0) {
+      window['start']();
+    }
   }
 
 }

@@ -17,7 +17,7 @@ export class ArticlesComponent implements AfterContentInit, OnInit {
     db.articles.then(value => {
       this.articles = value;
       this.ngAfterContentInit();
-    });
+    }).catch(reason => console.log(reason));
   }
 
   ngAfterContentInit(): void {

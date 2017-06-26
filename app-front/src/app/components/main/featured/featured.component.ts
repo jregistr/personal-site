@@ -21,6 +21,7 @@ export class FeaturedComponent implements AfterViewInit {
 
   projects: Project[] = [];
   current: Project | null;
+  failed = false;
   private curIndex: number;
 
   constructor(private detector: ChangeDetectorRef, private database: MainDatabaseService) {
@@ -34,7 +35,7 @@ export class FeaturedComponent implements AfterViewInit {
         this.curIndex = 0;
         this.current = null;
       }
-    });
+    }).catch(reason => this.failed = true);
   }
 
   ngAfterViewInit() {

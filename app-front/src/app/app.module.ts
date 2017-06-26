@@ -24,6 +24,7 @@ import {AppSettingsDatabaseService} from './services/app-settings-database.servi
 import {ProfileDatabaseService} from './services/profile-database.service';
 import {MiscDatabaseService} from './services/misc-database.service';
 import { WidgetComponent } from './components/main/aside/mygithub/widget/widget.component';
+import { FailedComponent } from './components/failed/failed.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { WidgetComponent } from './components/main/aside/mygithub/widget/widget.
     ArticlesComponent,
     ContactComponent,
     MessageComponent,
-    WidgetComponent
+    WidgetComponent,
+    FailedComponent
   ],
   imports: [
     BrowserModule,

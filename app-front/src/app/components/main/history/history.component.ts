@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {Occupation} from '../../../data/main.interfaces';
 import {MainDatabaseService} from '../../../services/main-database.service';
 
@@ -10,11 +10,12 @@ import {MainDatabaseService} from '../../../services/main-database.service';
 })
 export class HistoryComponent {
   occupations: Occupation[] = [];
+  failed = false;
 
   constructor(mainDb: MainDatabaseService) {
     mainDb.occupations.then(value => {
       this.occupations = value;
-    });
+    }).catch(reason => this.failed = true);
   }
 
 }

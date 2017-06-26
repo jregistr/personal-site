@@ -5,6 +5,7 @@
     <div  class="hist-occupations">
       <app-work *ngFor="let occ of occupations" [occupation]="occ"></app-work>
     </div>
+    <app-failed *ngIf="failed"></app-failed>
   </div>
 
 </div>

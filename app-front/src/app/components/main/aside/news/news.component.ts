@@ -3,8 +3,8 @@ import {NewsItem} from '../../../../data/side.interfaces';
 import 'jquery';
 import {MiscDatabaseService} from '../../../../services/misc-database.service';
 
-const REFRESH_TIME = 10000;
-const CHECK_DELAY = 1000;
+const REFRESH_TIME = 100000;
+const CHECK_DELAY = 2000;
 
 @Component({
   selector: 'app-news',
@@ -23,8 +23,6 @@ export class NewsComponent implements AfterViewInit {
   constructor(db: MiscDatabaseService) {
     this.db = db;
     this.onRefreshNews();
-    console.log(REFRESH_TIME);
-    console.log(typeof REFRESH_TIME);
     setInterval(this.onAutoRefresh.bind(this), CHECK_DELAY);
   }
 
@@ -36,6 +34,8 @@ export class NewsComponent implements AfterViewInit {
 
     this.db.news.then(value => {
       this.newsItems = value;
+    }).catch(reason => {
+      console.log(reason)
     });
   }
 

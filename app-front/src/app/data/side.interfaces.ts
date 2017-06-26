@@ -10,6 +10,6 @@ export interface CreditSummary {
 
 export interface NewsItem {
   title: string,
-  shortDescription: string,
+  description: string,
   url: string
 }

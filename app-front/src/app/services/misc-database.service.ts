@@ -1,44 +1,39 @@
 import {Injectable} from '@angular/core';
 import {BaseDatabaseService} from './BaseDatabaseService';
-import {Credit, CreditSummary, NewsItem} from '../data/side.interfaces';
-import * as faker from 'faker';
+import {CreditSummary, NewsItem} from '../data/side.interfaces';
+import 'jquery';
 
 @Injectable()
 export class MiscDatabaseService extends BaseDatabaseService {
 
-  private source: Promise<any> = new Promise((resolve, reject) => {
-    const credits: Credit[] = [];
-    for (let i = 0; i < 5; i++) {
-      credits.push({
-        name: faker.hacker.verb(),
-        url: faker.internet.url()
-      });
-    }
-    const creditSummary = {
-      message: faker.lorem.paragraph(2),
-      credits
-    };
-    resolve({
-      credits: creditSummary
-    });
+  public credits: Promise<CreditSummary> = this.makeFromSource(value => {
+    return value;
   });
+
+  constructor() {
+    super('/app/config/credits');
+  }
 
   public get news(): Promise<NewsItem[]> {
     return new Promise((resolve, reject) => {
-      const newsItems: NewsItem[] = [];
-      for (let i = 0; i < 5; i++) {
-        newsItems.push({
-          title: faker.lorem.words(6),
-          shortDescription: faker.lorem.sentences(2),
-          url: faker.internet.url()
-        });
-      }
-      resolve(newsItems);
+      $.ajax({
+        url: '/app/config/news',
+        method: 'GET',
+        contentType: 'application/json',
+        success(response: JQueryAjaxSettings) {
+          const success = response.success;
+          if (success) {
+            resolve(response.data);
+          } else {
+            reject('Data not present');
+          }
+        },
+        error(xhr, status) {
+          reject(status);
+        }
+      })
     });
   }
 
-  public credits: Promise<CreditSummary> = this.makeFromSource(this.source, value => {
-    return value.credits;
-  });
 
 }

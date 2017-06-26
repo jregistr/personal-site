@@ -14,6 +14,8 @@ export class CreditsComponent {
   constructor(db: MiscDatabaseService) {
     db.credits.then(value => {
       this.creditSummary = value;
+    }).catch(reason => {
+      console.log(reason);
     });
   }
 
