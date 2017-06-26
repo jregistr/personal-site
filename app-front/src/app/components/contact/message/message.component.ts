@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ReCaptchaComponent} from 'angular2-recaptcha';
 import {AppSettingsDatabaseService} from '../../../services/app-settings-database.service';
+import 'jquery';
 
 @Component({
   selector: 'app-message',
@@ -50,13 +51,22 @@ export class MessageComponent implements OnInit {
 
   onFormSubmit(): void {
     if (this.messageForm.valid) {
+      this.processingForm = true;
+      const formValue = this.messageForm.value;
+      const self = this;
+      const capchaCode = this.capchaToken;
+      $.ajax(jsRoutes.controllers.MailController.index(capchaCode, formValue.name, formValue.email,
+        formValue.subject, formValue.message))
+        .done(() => {
+          self.processingForm = false;
+          self.sendState = 1;
+        })
+        .fail(() => {
+          self.processingForm = false;
+          self.sendState = -1;
+        });
       this.messageForm.reset();
       this.onCapchaExpired();
-      this.processingForm = true;
-      setTimeout(() => {
-        this.processingForm = false;
-        this.sendState = -1;
-      }, 5000);
     } else {
       this.captcha.reset();
     }
