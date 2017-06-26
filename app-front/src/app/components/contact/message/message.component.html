@@ -1,4 +1,15 @@
-<form [formGroup]="messageForm" (ngSubmit)="onFormSubmit()">
+<form [formGroup]="messageForm" (ngSubmit)="onFormSubmit()" [ngClass]="processingForm ? 'msm-loading' : ''">
+  <div [ngClass]="sendState == 0 ? 'hidden' : ''">
+    <div class="alert alert-dismissible"
+         [ngClass]="sendState == 1 ? 'alert-success' : 'alert-danger'">
+      <button type="button" class="close" [attr.data-dismiss]="'alert'" [attr.aria-label]="'Close'"
+              (click)="onDismissAlert()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <span *ngIf="sendState == 1"><strong>Success!</strong>Your message was sent! Thank you!</span>
+      <span *ngIf="sendState == -1"><strong>Error!</strong> Your message was not sent</span>
+    </div>
+  </div>
   <div class="form-group">
     <label class="control-label">Full Name *</label>
     <input class="form-control" type="text" formControlName="name" placeholder="Your name" maxlength="30">

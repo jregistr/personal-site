@@ -11,7 +11,8 @@ export class WidgetComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.widgetElem.nativeElement.childElementCount === 0) {
-      window['start']();
+      // console.log('START');
+      // window['start']();
     }
   }
 

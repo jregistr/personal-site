@@ -24,6 +24,9 @@ export class MessageComponent implements OnInit {
   capchaToken = '';
   @ViewChild(ReCaptchaComponent) captcha: ReCaptchaComponent;
 
+  processingForm = false;
+  sendState = 0;
+
   constructor(private appConfigDatabase: AppSettingsDatabaseService) {
     appConfigDatabase.appSettings.then(value => {
       this.capchaSiteKey = value.capchaPublicId
@@ -46,13 +49,21 @@ export class MessageComponent implements OnInit {
   }
 
   onFormSubmit(): void {
-    console.log(this.capchaToken);
     if (this.messageForm.valid) {
       this.messageForm.reset();
       this.onCapchaExpired();
+      this.processingForm = true;
+      setTimeout(() => {
+        this.processingForm = false;
+        this.sendState = -1;
+      }, 5000);
     } else {
       this.captcha.reset();
     }
+  }
+
+  onDismissAlert(): void {
+    this.sendState = 0;
   }
 
 }

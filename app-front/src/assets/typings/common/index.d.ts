@@ -1,5 +1,5 @@
 declare function isNaN(value: string): boolean
 
-declare namespace GitHubActivity {
-  function feed(options: object);
+interface JQuery {
+  modal(param: string): void;
 }
