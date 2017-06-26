@@ -15,6 +15,9 @@ import services._
  */
 class Module extends AbstractModule {
 
+  /**
+    * Configures the dependency binding for custom service classes.
+    */
   override def configure(): Unit = {
     bind(classOf[Clock]).toInstance(Clock.systemDefaultZone)
     bind(classOf[ConfigLoader]).to(classOf[JsonConfigLoader])
