@@ -1,0 +1,23 @@
+@import "../../../../assets/sass/helpers/variables"
+@import "../../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables"
+
+.aside-outer
+  .rm-col-padding
+    padding-left: 0
+    padding-right: 0
+
+@media screen and (max-width: $screen-sm)
+  .aside-outer
+    .rm-col-padding
+      padding-left: 15px
+
+  .aside-outer
+    >:first-child
+      padding-left: 0!important
+
+@media screen and (max-width: $screen-xs)
+  .aside-outer
+    .rm-col-padding
+      padding-left: 0
+      padding-right: 0
+
