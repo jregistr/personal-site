@@ -13,12 +13,12 @@ export class MiscDatabaseService extends BaseDatabaseService {
 
   public githubConfig: Promise<GithubConfig> = this.passThroughEndpoint('/app/config/github');
 
-  constructor() {
-    super('/app/config/credits');
-  }
-
   public get news(): Promise<NewsItem[]> {
     return this.passThroughEndpoint('/app/config/news');
+  }
+
+  protected get endPoint(): string {
+    return '/app/config/credits';
   }
 
 }

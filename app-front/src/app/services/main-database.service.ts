@@ -21,7 +21,8 @@ export class MainDatabaseService extends BaseDatabaseService {
     return value.articles;
   });
 
-  constructor() {
-    super('/app/config/main');
+  protected get endPoint(): string {
+    return '/app/config/main';
   }
+
 }

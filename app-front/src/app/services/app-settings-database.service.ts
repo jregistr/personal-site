@@ -12,7 +12,8 @@ export class AppSettingsDatabaseService extends BaseDatabaseService {
     }
   });
 
-  constructor() {
-    super('/app/config/app');
+  protected get endPoint(): string {
+    return '/app/config/app';
   }
+
 }

@@ -41,8 +41,8 @@ export class ProfileDatabaseService extends BaseDatabaseService {
     });
   });
 
-  constructor() {
-    super('/app/config/profile');
+  protected get endPoint(): string {
+    return '/app/config/profile';
   }
 
 }

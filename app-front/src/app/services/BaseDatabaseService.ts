@@ -3,12 +3,11 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export abstract class BaseDatabaseService {
 
-  protected endPoint: string;
+  protected abstract get endPoint(): string;
   protected source: Promise<any>;
 
-  constructor(endPoint: string) {
-    this.endPoint = endPoint;
-    this.source = this.passThroughEndpoint(endPoint);
+  constructor() {
+    this.source = this.passThroughEndpoint(this.endPoint);
   }
 
   makeFromSource<T>(transmute: (value: any) => T): Promise<T> {
