@@ -6,16 +6,17 @@ import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.JsNull
 import play.api.mvc._
 import services.Constants.{failMessage, succMessage}
-import services.MailerService
+import services.{CapchaVerifyService, MailerService}
 
 import scala.concurrent.Future
+import scala.util.{Failure, Success}
 
 /**
   * Controller to handle mailing.
   *
   * @param mailerService - A dependency on the mailing service.
   */
-class MailController @Inject()(mailerService: MailerService) extends Controller {
+class MailController @Inject()(mailerService: MailerService, capchaVerifyService: CapchaVerifyService) extends Controller {
 
   /**
     * Action to process message input and send email.
@@ -27,13 +28,25 @@ class MailController @Inject()(mailerService: MailerService) extends Controller 
     * @param message    - The content of the message.
     * @return - Returns a json describing the success of the operation.
     */
-  def index(capchaCode: String, name: String, email: String, subject: String, message: String): Action[AnyContent] = Action.async { request =>
-    // call to the mailing service to send an email
-    val result: Future[Boolean] = mailerService.sendMail(name, email, subject, message)
-    result
-      .map(value => {
-        if (value) Ok(succMessage(JsNull)) else Unauthorized(failMessage("Did not successfully send message"))
-      })
+  def index(capchaCode: String, name: String, email: String, subject: String, message: String): Action[AnyContent] = Action.async {
+    capchaVerifyService.verify(capchaCode).map {
+      case Success(verified) =>
+        if (verified) {
+          // call to the mailing service to send an email
+          val result: Future[Boolean] = mailerService.sendMail(name, email, subject, message)
+          val send: Future[Result] = result.map(value => {
+            if (value) Ok(succMessage(JsNull)) else BadRequest(failMessage("Did not successfully send message"))
+          })
+          send
+        } else {
+          Future {
+            BadRequest(failMessage("Failed to verify recapcha token"))
+          }
+        }
+      case Failure(_) => Future {
+        BadRequest(failMessage("recapcha token not verified"))
+      }
+    }.flatMap(identity)
   }
 
 }

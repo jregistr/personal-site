@@ -23,6 +23,7 @@ class Module extends AbstractModule {
     bind(classOf[ConfigLoader]).to(classOf[JsonConfigLoader])
     bind(classOf[Mailer]).to(classOf[MailerService])
     bind(classOf[NewsService]).to(classOf[QueryingNewsService]).asEagerSingleton()
+    bind(classOf[CapchaVerifyService]).to(classOf[QueryingCapchaService])
   }
 
 }
