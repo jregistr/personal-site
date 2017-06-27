@@ -2,8 +2,8 @@
   <div class="pf-section">
     <h2>Github Profile</h2>
     <div class="pf-section-content mgh-content">
-      <app-widget [githubUsername]="socials.github"></app-widget>
-      <!--<div on onload="console.log(this.attributeNames())" class="github-widget" [attr.data-username]="socials.github"></div>-->
+      <ng-github-card [githubUser]="socials.github" [top2]="'angular-github-widget'" [top1]="'personal-site'"
+                      [top3]="'Compiler-Contruction'"></ng-github-card>
     </div>
   </div>
 </div>

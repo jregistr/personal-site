@@ -23,8 +23,8 @@
     "bootstrap-sass": "^3.3.7",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
-    "github-card": "^1.2.1",
     "jquery": "^3.2.1",
+    "ng-github-card": "^2.0.0",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   },

@@ -23,8 +23,8 @@ import {MainDatabaseService} from './services/main-database.service';
 import {AppSettingsDatabaseService} from './services/app-settings-database.service';
 import {ProfileDatabaseService} from './services/profile-database.service';
 import {MiscDatabaseService} from './services/misc-database.service';
-import { WidgetComponent } from './components/main/aside/mygithub/widget/widget.component';
-import { FailedComponent } from './components/failed/failed.component';
+import {FailedComponent} from './components/failed/failed.component';
+import {NgGithubCardModule} from 'ng-github-card';
 
 @NgModule({
   declarations: [
@@ -44,13 +44,13 @@ import { FailedComponent } from './components/failed/failed.component';
     ArticlesComponent,
     ContactComponent,
     MessageComponent,
-    WidgetComponent,
     FailedComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    ReCaptchaModule
+    ReCaptchaModule,
+    NgGithubCardModule
   ],
   providers: [MainDatabaseService, AppSettingsDatabaseService, ProfileDatabaseService, MiscDatabaseService],
   bootstrap: [AppComponent]
