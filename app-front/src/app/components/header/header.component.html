@@ -13,8 +13,8 @@
               <i class="fa fa-linkedin" aria-hidden="true"></i>
             </a>
           </li>
-          <li *ngIf="profile.socials.github">
-            <a href="https://github.com/{{profile.socials.github}}" target="_blank">
+          <li *ngIf="githubConfig">
+            <a href="https://github.com/{{githubConfig.userName}}" target="_blank">
               <i class="fa fa-github" aria-hidden="true"></i>
             </a>
           </li>

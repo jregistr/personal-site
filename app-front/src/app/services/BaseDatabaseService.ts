@@ -8,7 +8,21 @@ export abstract class BaseDatabaseService {
 
   constructor(endPoint: string) {
     this.endPoint = endPoint;
-    this.source = new Promise((resolve, reject) => {
+    this.source = this.passThroughEndpoint(endPoint);
+  }
+
+  makeFromSource<T>(transmute: (value: any) => T): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+      this.source.then(value => {
+        resolve(transmute(value));
+      }, reason => {
+        reject(reason);
+      })
+    });
+  }
+
+  protected passThroughEndpoint(endPoint: string): Promise<any> {
+    return new Promise((resolve, reject) => {
       $.ajax({
         url: endPoint,
         method: 'GET',
@@ -24,16 +38,6 @@ export abstract class BaseDatabaseService {
         error(xhr, status) {
           reject(status);
         }
-      })
-    });
-  }
-
-  makeFromSource<T>(transmute: (value: any) => T): Promise<T> {
-    return new Promise<T>((resolve, reject) => {
-      this.source.then(value => {
-        resolve(transmute(value));
-      }, reason => {
-        reject(reason);
       })
     });
   }

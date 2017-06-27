@@ -17,6 +17,7 @@ object Constants {
   val ArticlesConfig: (String, String) = ("/articles.config.json", "/articles.config.example.json")
 
   val CreditsConfig: (String, String) = ("/credits.config.json", "/credits.config.example.json")
+  val GithubConfig: (String, String) = ("/github.config.json", "/github.config.example.json")
 
   /**
     * Creates the standard format for json returned to the user when a failure occured.

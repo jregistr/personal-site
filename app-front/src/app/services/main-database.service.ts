@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BaseDatabaseService} from './BaseDatabaseService';
-import * as faker from 'faker';
-import {Article, Occupation, Project, Technology, TechnologySummary} from '../data/main.interfaces';
+import {Article, Occupation, Project, TechnologySummary} from '../data/main.interfaces';
 
 @Injectable()
 export class MainDatabaseService extends BaseDatabaseService {

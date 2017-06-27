@@ -1,9 +1,9 @@
-<div *ngIf="socials !== null" class="pf-section-outer mgh-outer">
+<div *ngIf="githubConfig !== null" class="pf-section-outer mgh-outer">
   <div class="pf-section">
     <h2>Github Profile</h2>
     <div class="pf-section-content mgh-content">
-      <ng-github-card [githubUser]="socials.github" [top2]="'angular-github-widget'" [top1]="'personal-site'"
-                      [top3]="'Compiler-Contruction'"></ng-github-card>
+      <ng-github-card [githubUser]="githubConfig.userName" [top1]="top1" [top2]="top2"
+                      [top3]="top3"></ng-github-card>
     </div>
   </div>
 </div>

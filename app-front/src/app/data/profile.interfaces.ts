@@ -12,7 +12,6 @@ export interface Contact {
 
 export interface Socials {
   linkedIn?: string,
-  github?: string,
   twitter?: string
 }
 

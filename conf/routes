@@ -12,6 +12,7 @@ POST        /app/mail                  controllers.MailController.index(capchaCo
 GET         /app/config/app            controllers.ConfigDataController.app
 GET         /app/config/profile        controllers.ConfigDataController.profile
 GET         /app/config/credits        controllers.ConfigDataController.credits
+GET         /app/config/github         controllers.ConfigDataController.github
 GET         /app/config/main           controllers.ConfigDataController.main
 
 GET         /app/config/news           controllers.ConfigDataController.news

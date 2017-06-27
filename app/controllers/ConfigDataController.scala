@@ -35,6 +35,11 @@ class ConfigDataController @Inject()(configLoader: ConfigLoader,
   def credits: Action[AnyContent] = renderConfigObj(CreditsConfig._1, Some(CreditsConfig._2))
 
   /**
+    * @see [[ConfigDataController.app]]
+    */
+  def github: Action[AnyContent] = renderConfigObj(GithubConfig._1, Some(GithubConfig._2))
+
+  /**
     * Loads up multiple config files and combines them into one json output. This payload contans most of the
     * data that is rendered on the page.
     * @return Returns the object housing the different loaded config file data.

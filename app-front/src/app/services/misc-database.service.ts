@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {BaseDatabaseService} from './BaseDatabaseService';
 import {CreditSummary, NewsItem} from '../data/side.interfaces';
 import 'jquery';
+import {GithubConfig} from '../data/misc.interfaces';
 
 @Injectable()
 export class MiscDatabaseService extends BaseDatabaseService {
@@ -10,30 +11,14 @@ export class MiscDatabaseService extends BaseDatabaseService {
     return value;
   });
 
+  public githubConfig: Promise<GithubConfig> = this.passThroughEndpoint('/app/config/github');
+
   constructor() {
     super('/app/config/credits');
   }
 
   public get news(): Promise<NewsItem[]> {
-    return new Promise((resolve, reject) => {
-      $.ajax({
-        url: '/app/config/news',
-        method: 'GET',
-        contentType: 'application/json',
-        success(response: JQueryAjaxSettings) {
-          const success = response.success;
-          if (success) {
-            resolve(response.data);
-          } else {
-            reject('Data not present');
-          }
-        },
-        error(xhr, status) {
-          reject(status);
-        }
-      })
-    });
+    return this.passThroughEndpoint('/app/config/news');
   }
-
 
 }
