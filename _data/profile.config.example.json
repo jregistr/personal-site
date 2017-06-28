@@ -2,7 +2,7 @@
   "personal": {
     "name": "Your Name Here",
     "title": "Best Developer Ever",
-    "imageUrl": "http://placekitten.com/1024/1024",
+    "imageUrl": "https://placekitten.com/1024/1024",
     "resumeUrl" : "http://www.example.com/"
   },
   "messages": {
