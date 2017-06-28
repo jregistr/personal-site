@@ -20,6 +20,10 @@
     {
       "name": "Bootstrap",
       "url" : "http://getbootstrap.com/"
+    },
+    {
+      "name": "News Api",
+      "url" : "https://newsapi.org"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "title": "The title of this app",
+  "title": null,
   "favicon": null,
   "appName": "Example Name",
   "capchaSecret": "Create one of these at https://www.google.com/recaptcha/intro/",
