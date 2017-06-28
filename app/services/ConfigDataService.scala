@@ -14,10 +14,17 @@ import play.api.libs.concurrent.Execution.Implicits._
   */
 trait ConfigDataService {
   def title: Future[Try[String]]
+
+  def favicon: Future[Try[String]]
+
   def app: Future[Try[JsObject]]
+
   def profile: Future[Try[JsObject]]
+
   def credits: Future[Try[JsObject]]
+
   def github: Future[Try[JsObject]]
+
   def mains: Future[Try[JsObject]]
 }
 
@@ -27,12 +34,11 @@ trait ConfigDataService {
 @Singleton
 class FileBasedConfigDataService @Inject()(configLoader: ConfigLoader) extends ConfigDataService {
 
-  override def title: Future[Try[String]] = configLoader.loadObject(ServerConfig._1, Some(ServerConfig._2)) map {
-    case Success(config) => Try({
-      (config \ "title").as[String]
-    })
-    case Failure(t) => Failure(t)
-  }
+  override def title: Future[Try[String]] =
+    getSpecific(ServerConfig._1, Some(ServerConfig._2))(c => (c \ "title").as[String])
+
+  override def favicon: Future[Try[String]] =
+    getSpecific(ServerConfig._1, Some(ServerConfig._2))(c => (c \ "favicon").as[String])
 
   override def app: Future[Try[JsObject]] = configLoader.loadObject(AppConfig._1, Some(AppConfig._2))
 
@@ -43,7 +49,7 @@ class FileBasedConfigDataService @Inject()(configLoader: ConfigLoader) extends C
   override def github: Future[Try[JsObject]] = configLoader.loadObject(GithubConfig._1, Some(GithubConfig._2))
 
   override def mains: Future[Try[JsObject]] = (for {
-    // Load all the config objects to put together
+  // Load all the config objects to put together
     occupationsTry <- configLoader.loadArray(WorkHistoryConfig._1, Some(WorkHistoryConfig._2))
     projectsTry <- configLoader.loadArray(FeaturedProjectsConfig._1, Some(FeaturedProjectsConfig._2))
     techSumTry <- configLoader.loadObject(LangsFramesConfig._1, Some(LangsFramesConfig._2))
@@ -64,6 +70,23 @@ class FileBasedConfigDataService @Inject()(configLoader: ConfigLoader) extends C
         }
       })
       Success(JsObject(pairs))
+    }
+
+  /**
+    * Method to load a config file then apply the convert function to it to return some transformed value.
+    *
+    * @param fileName - The main file to attempt to load from.
+    * @param fallBack - The file to fallback to if load failed.
+    * @param convert  - The function to attempt to apply to the loaded object.
+    * @tparam T - The type we are converting to.
+    * @return - Returns the transformed data.
+    */
+  private def getSpecific[T](fileName: String, fallBack: Option[String])(convert: JsValue => T): Future[Try[T]] =
+    configLoader.loadObject(fileName, fallBack) map {
+      case Success(config) => Try({
+        convert(config)
+      })
+      case Failure(t) => Failure(t)
     }
 
 }

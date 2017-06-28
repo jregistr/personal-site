@@ -1,9 +1,14 @@
+@(config: (Option[String], (Option[String])))
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Jeff Registre - Portfolio</title>
+        <title>@config._1.getOrElse("My Website")</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("ui/styles.bundle.css")"/>
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("files/favicon.png")">
+
+        @if(config._2.isDefined) {
+            <link rel="shortcut icon" type="image/png" href="@config._2.get">
+        }
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
         @*<base href="/">*@
         <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -18,7 +18,6 @@ export class MygithubComponent {
 
   constructor(misc: MiscDatabaseService) {
     misc.githubConfig.then(value => {
-      console.log(value);
       if (value.repositoryHighlight.length > 0) {
         this.top1 = value.repositoryHighlight[0];
       }
@@ -30,7 +29,7 @@ export class MygithubComponent {
       }
       this.githubConfig = value;
     }).catch(reason => {
-      console.log(reason);
+      console.error(reason);
     });
   }
 

@@ -1,5 +1,6 @@
 {
   "title": "The title of this app",
+  "favicon": null,
   "appName": "Example Name",
   "capchaSecret": "Create one of these at https://www.google.com/recaptcha/intro/",
   "gEmail": "<Used only on back-end>. Gmail account to send emails from",
