@@ -1,21 +1,21 @@
 package controllers
 
 import play.api.Logger
+import play.api.libs.concurrent.Execution.Implicits._
+import play.api.libs.json.JsValue
 import play.api.mvc._
+import services.ConfigDataService
+import services.Constants.{failMessage, succMessage}
 
 import scala.concurrent.Future
 import scala.util.{Failure, Success, Try}
-import play.api.libs.concurrent.Execution.Implicits._
-import play.api.libs.json.{JsObject, JsValue}
-import services.ConfigLoader
-import services.Constants.{succMessage, failMessage}
 
 /**
   * Base controller class for the controllers that supply data to the front end.
   *
-  * @param configLoader - A dependency on the config file loader service.
+  * @param dataService - A dependency on the data loader service service.
   */
-abstract class DataController(configLoader: ConfigLoader) extends Controller {
+abstract class DataController(dataService: ConfigDataService) extends Controller {
 
   protected val logger = Logger(getClass)
 
@@ -37,15 +37,13 @@ abstract class DataController(configLoader: ConfigLoader) extends Controller {
   }
 
   /**
-    * Calls [[ConfigLoader]] service to load a file then renders the result.
+    * Method to render the given data to the user.
     *
-    * @param configFileName - The name of the file to load.
-    * @param fallBack       - The fallback file if the config file wasn't found.
-    * @return Returns the result of the file loading.
+    * @param data - The data to render.
+    * @return - The provided user as a response to be sent over to the user.
     */
-  def renderConfigObj(configFileName: String, fallBack: Option[String]): Action[AnyContent] = Action.async {
-    val configFileFuture: Future[Try[JsObject]] = configLoader.loadObject(configFileName, fallBack)
-    renderFutureData(configFileFuture)
+  def renderConfig(data: Future[Try[JsValue]]): Action[AnyContent] = Action.async {
+    renderFutureData(data)
   }
 
 }

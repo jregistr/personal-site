@@ -7,17 +7,18 @@ import services.Constants._
 
 import scala.concurrent.Future
 import scala.util.{Failure, Success, Try}
+import play.api.libs.concurrent.Execution.Implicits._
 
 /**
   * Trait for configuration data loading.
   */
 trait ConfigDataService {
-  val title: Future[Try[JsObject]]
-  val app: Future[Try[JsObject]]
-  val profile: Future[Try[JsObject]]
-  val credits: Future[Try[JsObject]]
-  val github: Future[Try[JsObject]]
-  val mains: Future[Try[JsObject]]
+  def title: Future[Try[String]]
+  def app: Future[Try[JsObject]]
+  def profile: Future[Try[JsObject]]
+  def credits: Future[Try[JsObject]]
+  def github: Future[Try[JsObject]]
+  def mains: Future[Try[JsObject]]
 }
 
 /**
@@ -26,22 +27,22 @@ trait ConfigDataService {
 @Singleton
 class FileBasedConfigDataService @Inject()(configLoader: ConfigLoader) extends ConfigDataService {
 
-  override lazy val title: Future[Try[String]] = configLoader.loadObject(ServerConfig._1, Some(ServerConfig._2)) map {
+  override def title: Future[Try[String]] = configLoader.loadObject(ServerConfig._1, Some(ServerConfig._2)) map {
     case Success(config) => Try({
       (config \ "title").as[String]
     })
     case Failure(t) => Failure(t)
   }
 
-  override lazy val app: Future[Try[JsObject]] = configLoader.loadObject(AppConfig._1, Some(AppConfig._2))
+  override def app: Future[Try[JsObject]] = configLoader.loadObject(AppConfig._1, Some(AppConfig._2))
 
-  override lazy val profile: Future[Try[JsObject]] = configLoader.loadObject(ProfileConfig._1, Some(ProfileConfig._2))
+  override def profile: Future[Try[JsObject]] = configLoader.loadObject(ProfileConfig._1, Some(ProfileConfig._2))
 
-  override lazy val credits: Future[Try[JsObject]] = configLoader.loadObject(CreditsConfig._1, Some(CreditsConfig._2))
+  override def credits: Future[Try[JsObject]] = configLoader.loadObject(CreditsConfig._1, Some(CreditsConfig._2))
 
-  override lazy val github: Future[Try[JsObject]] = configLoader.loadObject(GithubConfig._1, Some(GithubConfig._2))
+  override def github: Future[Try[JsObject]] = configLoader.loadObject(GithubConfig._1, Some(GithubConfig._2))
 
-  override lazy val mains: Future[Try[JsObject]] = (for {
+  override def mains: Future[Try[JsObject]] = (for {
     // Load all the config objects to put together
     occupationsTry <- configLoader.loadArray(WorkHistoryConfig._1, Some(WorkHistoryConfig._2))
     projectsTry <- configLoader.loadArray(FeaturedProjectsConfig._1, Some(FeaturedProjectsConfig._2))

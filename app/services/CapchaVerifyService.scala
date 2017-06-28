@@ -2,13 +2,13 @@ package services
 
 import javax.inject.Inject
 
+import akka.actor.ActorSystem
 import play.api.Logger
-import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
 import services.Constants.ServerConfig
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 
 /**
@@ -30,8 +30,13 @@ trait CapchaVerifyService {
   *
   * @param configLoader - Has a dependency on the config load to the secret.
   * @param ws           - Has a dependency on [[WSClient]] to make the verification request.
+  * @param akkaSystem   - The actor system to use to load set up the execution content.
   */
-class QueryingCapchaService @Inject()(configLoader: ConfigLoader, ws: WSClient) extends CapchaVerifyService {
+class QueryingCapchaService @Inject()(configLoader: ConfigLoader, ws: WSClient,
+                                      akkaSystem: ActorSystem) extends CapchaVerifyService {
+
+  // Execution context, defined in application.conf
+  implicit val myExecutionContext: ExecutionContext = akkaSystem.dispatchers.lookup("contexts.api-queries")
 
   private val logger = Logger(getClass)
 
