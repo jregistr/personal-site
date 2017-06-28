@@ -22,8 +22,10 @@ class Module extends AbstractModule {
     bind(classOf[Clock]).toInstance(Clock.systemDefaultZone)
     bind(classOf[ConfigLoader]).to(classOf[JsonConfigLoader])
     bind(classOf[Mailer]).to(classOf[MailerService])
-    bind(classOf[NewsService]).to(classOf[QueryingNewsService]).asEagerSingleton()
     bind(classOf[CapchaVerifyService]).to(classOf[QueryingCapchaService])
+
+    bind(classOf[NewsService]).to(classOf[QueryingNewsService]).asEagerSingleton()
+    bind(classOf[ConfigDataService]).to(classOf[FileBasedConfigDataService]).asEagerSingleton()
   }
 
 }
