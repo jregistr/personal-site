@@ -10,9 +10,10 @@ import play.server.api._
 class CustomSSLEngineProvider(appProvider: ApplicationProvider) extends SSLEngineProvider {
 
   private val priorityCipherSuites = List(
-    "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
-    "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
-    "TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA"
+    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256",
+    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+    "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384",
+    "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
   )
 
   override def createSSLEngine(): SSLEngine = {
