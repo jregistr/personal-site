@@ -11,7 +11,7 @@
     "target": "es5",
     "typeRoots": [
       "node_modules/@types",
-      "src/assets/typings"
+      "src/typings"
     ],
     "lib": [
       "es2016",
