@@ -3,6 +3,7 @@ package services
 import javax.inject.{Inject, Singleton}
 
 import akka.actor.ActorSystem
+import data.LeakyList
 import play.api.Logger
 import play.api.inject.ApplicationLifecycle
 import play.api.libs.json._
@@ -10,11 +11,10 @@ import play.api.libs.ws._
 import services.Constants.ServerConfig
 
 import scala.collection.JavaConversions._
-import scala.collection.mutable.ListBuffer
-import scala.concurrent.{ExecutionContext, Future}
-import scala.util.{Failure, Success, Try}
 import scala.concurrent.duration._
+import scala.concurrent.{ExecutionContext, Future}
 import scala.language.postfixOps
+import scala.util.{Failure, Success, Try}
 
 /**
   * Trait for the news service provider.
@@ -59,7 +59,7 @@ class QueryingNewsService @Inject() private(akkaSystem: ActorSystem,
   updateArticlesList()
 
   // update the news every 10 minutes
-  akkaSystem.scheduler.schedule(10 minutes, 10 minutes) {
+  akkaSystem.scheduler.schedule(30 minutes, 30 minutes) {
     updateArticlesList()
   }
 
@@ -75,7 +75,7 @@ class QueryingNewsService @Inject() private(akkaSystem: ActorSystem,
   }
 
   // store the current news.
-  private val store: ListBuffer[JsValue] = new ListBuffer[JsValue]
+  private var store: LeakyList[JsValue] = LeakyList(15)
 
   /**
     * Creates a list of [[WSRequest]] objects for the set news sources.
@@ -109,7 +109,7 @@ class QueryingNewsService @Inject() private(akkaSystem: ActorSystem,
     * @inheritdoc
     */
   override def findArticles(): Future[Try[JsArray]] = Future {
-    Try(JsArray(store.reverse))
+    Try(JsArray(store.underLying().reverse))
   }
 
   /**
@@ -150,7 +150,7 @@ class QueryingNewsService @Inject() private(akkaSystem: ActorSystem,
 
       articlesFuture
 
-      // no api key available, simply return the current state of the news store.
+    // no api key available, simply return the current state of the news store.
     case None => Future {
       Try(JsArray())
     }
@@ -163,11 +163,11 @@ class QueryingNewsService @Inject() private(akkaSystem: ActorSystem,
     case Success(articles) =>
       val diff: Seq[JsValue] = articles.value.filterNot(queried => {
         val queriedUrl: String = (queried \ "url").as[String]
-        val find = store.find(p => (p \ "url").as[String] == queriedUrl)
+        val find = store.underLying().find(p => (p \ "url").as[String] == queriedUrl)
         find.isDefined
       })
 
-      store.appendAll(diff)
+    store.addAll(diff:_*)
     case Failure(t) => logger.error("Updating articles failed", t)
   }
 
