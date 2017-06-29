@@ -5,9 +5,16 @@
 
 .articles-outer
   .articles-content
-    max-height: 400px
-    overflow-y: scroll
+    .article:last-of-type .divider
+      display: none
     .article
+      img
+        +border-radius-px(2px)
+        &:hover
+          opacity: 0.85
+      .divider
+        margin-bottom: 10px
+        margin-top: 10px
       > h3:first-of-type
         margin-top: 15px
         a
@@ -15,9 +22,9 @@
       p
         font-size: 16px
         color: $portfolio-txt-color-fourth
+      i
+        margin-right: 5px
       h5
-        i
-          margin-right: 5px
         a
           color: $portfolio-bg-medium
 

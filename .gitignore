@@ -101,3 +101,5 @@ node_modules
 
 public/mix.js
 public/mix-manifest.json
+
+.DS_Store

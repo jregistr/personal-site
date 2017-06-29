@@ -1,7 +1,8 @@
 export interface Article {
   title: string,
   summary: string,
-  url: string
+  url: string,
+  imageUrl: string
 }
 
 export interface Project {
