@@ -75,7 +75,7 @@ class QueryingNewsService @Inject() private(akkaSystem: ActorSystem,
   }
 
   // store the current news.
-  private var store: LeakyList[JsValue] = LeakyList(15)
+  private val store: LeakyList[JsValue] = LeakyList(15)
 
   /**
     * Creates a list of [[WSRequest]] objects for the set news sources.
