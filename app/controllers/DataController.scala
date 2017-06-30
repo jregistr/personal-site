@@ -8,7 +8,6 @@ import services.ConfigDataService
 import services.Constants.{failMessage, succMessage}
 
 import scala.concurrent.Future
-import scala.util.{Failure, Success, Try}
 
 /**
   * Base controller class for the controllers that supply data to the front end.
@@ -22,15 +21,15 @@ abstract class DataController(dataService: ConfigDataService) extends Controller
   protected val FailedMessage = "Failed to load data"
 
   /**
-    * Pattern matches on a [[Future]] housing a [[Try]] to determine what to render.
+    * Pattern matches on a [[Future]]  to determine what to render.
     *
     * @param data - The data to match over.
     * @return - Returns an [[Ok]] response if operation was successful or an [[InternalServerError]] otherwise.
     */
-  def renderFutureData(data: Future[Try[JsValue]]): Future[Result] = {
-    data.map {
-      case Success(result) => Ok(succMessage(result))
-      case Failure(t) =>
+  def renderFutureData(data: Future[JsValue]): Future[Result] = {
+    data map { res => Ok(succMessage(res))
+    } recover {
+      case t: Throwable =>
         logger.error(FailedMessage, t)
         InternalServerError(failMessage(FailedMessage))
     }
@@ -42,7 +41,7 @@ abstract class DataController(dataService: ConfigDataService) extends Controller
     * @param data - The data to render.
     * @return - The provided user as a response to be sent over to the user.
     */
-  def renderConfig(data: Future[Try[JsValue]]): Action[AnyContent] = Action.async {
+  def renderConfig(data: Future[JsValue]): Action[AnyContent] = Action.async {
     renderFutureData(data)
   }
 

@@ -22,7 +22,8 @@ trait CapchaVerifyService {
     * @param capChaToken - The capcha token to verify.
     * @return - An attempt at verifying a token.
     */
-  def verify(capChaToken: String): Future[Try[Boolean]]
+  def verify(capChaToken: String): Future[Boolean]
+
 }
 
 /**
@@ -38,16 +39,10 @@ class QueryingCapchaService @Inject()(configLoader: ConfigLoader, ws: WSClient,
   // Execution context, defined in application.conf
   implicit val myExecutionContext: ExecutionContext = akkaSystem.dispatchers.lookup("contexts.api-queries")
 
-  private val logger = Logger(getClass)
-
-  private lazy val loadSecret: Future[Try[String]] = configLoader.loadObject(ServerConfig._1, Some(ServerConfig._2)).map {
-    case Success(config) =>
-      Try({
-        (config \ "capchaSecret").as[String]
-      })
-    case Failure(t) =>
-      Failure(t)
-  }
+  private lazy val loadSecret: Future[String] = configLoader.loadObject(ServerConfig._1, Some(ServerConfig._2))
+    .map { config =>
+      (config \ "capchaSecret").as[String]
+    }
 
   /**
     * Verifies a recapcha token.
@@ -55,33 +50,24 @@ class QueryingCapchaService @Inject()(configLoader: ConfigLoader, ws: WSClient,
     * @param capChaToken - The capcha token to verify.
     * @return - An attempt at verifying a token.
     */
-  override def verify(capChaToken: String): Future[Try[Boolean]] = loadSecret.map {
-    case Success(secret) =>
-      val request = ws
-        .url("https://www.google.com/recaptcha/api/siteverify")
-        .withHeaders(
-          "Accept" -> "application/json",
-          "Content-type" -> "application/x-www-form-urlencoded"
-        )
+  override def verify(capChaToken: String): Future[Boolean] = loadSecret.map { secret =>
+    val request = ws
+      .url("https://www.google.com/recaptcha/api/siteverify")
+      .withHeaders(
+        "Accept" -> "application/json",
+        "Content-type" -> "application/x-www-form-urlencoded"
+      )
 
-      val processResponse: Future[Try[Boolean]] = request.post(
-        Seq(
-          s"secret=$secret",
-          s"response=$capChaToken"
-        ).mkString("&")
-      ).map { response =>
-        Try({
-          val json = response.json
-          println(Json.stringify(json))
-          val success = (json \ "success").as[Boolean]
-          success
-        })
-      }
-      processResponse
-    case Failure(t) =>
-      logger.error("Failed to load secret")
-      Future {
-        Failure(t)
-      }
+    val processResponse: Future[Boolean] = request.post(
+      Seq(
+        s"secret=$secret",
+        s"response=$capChaToken"
+      ).mkString("&")
+    ).map { response =>
+      val json = response.json
+      val success = (json \ "success").as[Boolean]
+      success
+    }
+    processResponse
   }.flatMap(identity)
 }

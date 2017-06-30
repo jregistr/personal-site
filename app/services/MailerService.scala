@@ -43,27 +43,17 @@ class MailerService @Inject()(loader: ConfigLoader) extends Mailer {
     * @inheritdoc
     */
   def sendMail(senderName: String, senderEmail: String, subject: String, content: String): Future[Boolean] =
-
   //load up the serve config json file
-    loader.loadObject(ServerConfig._1, Some(ServerConfig._2)).map {
+    loader.loadObject(ServerConfig._1, Some(ServerConfig._2)).map { config =>
+      // Attempt to configure SMTP and send the message using Google smtp.
+      val send = sendMessage(config, senderName, senderEmail, subject, content)
 
-      /// if loading was successful
-      case Success(config: JsObject) =>
-
-        // Attempt to configure SMTP and send the message using Google smtp.
-        val send = sendMessage(config, senderName, senderEmail, subject, content)
-
-        send match {
-          case _: Success[_] => true
-          case Failure(e) =>
-            logError(senderEmail, subject, e)
-            false
-        }
-
-      //if loading failed, log the error and return false.
-      case Failure(t) =>
-        logError(senderEmail, subject, t)
-        false
+      send match {
+        case _: Success[_] => true
+        case Failure(e) =>
+          logError(senderEmail, subject, e)
+          false
+      }
     }
 
   /**

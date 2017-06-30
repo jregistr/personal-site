@@ -13,19 +13,19 @@ import play.api.libs.concurrent.Execution.Implicits._
   * Trait for configuration data loading.
   */
 trait ConfigDataService {
-  def title: Future[Try[String]]
+  def title: Future[String]
 
-  def favicon: Future[Try[String]]
+  def favicon: Future[String]
 
-  def app: Future[Try[JsObject]]
+  def app: Future[JsObject]
 
-  def profile: Future[Try[JsObject]]
+  def profile: Future[JsObject]
 
-  def credits: Future[Try[JsObject]]
+  def credits: Future[JsObject]
 
-  def github: Future[Try[JsObject]]
+  def github: Future[JsObject]
 
-  def mains: Future[Try[JsObject]]
+  def mains: Future[JsObject]
 }
 
 /**
@@ -34,42 +34,36 @@ trait ConfigDataService {
 @Singleton
 class FileBasedConfigDataService @Inject()(configLoader: ConfigLoader) extends ConfigDataService {
 
-  override def title: Future[Try[String]] =
+  override def title: Future[String] =
     getSpecific(ServerConfig._1, Some(ServerConfig._2))(c => (c \ "title").as[String])
 
-  override def favicon: Future[Try[String]] =
+  override def favicon: Future[String] =
     getSpecific(ServerConfig._1, Some(ServerConfig._2))(c => (c \ "favicon").as[String])
 
-  override def app: Future[Try[JsObject]] = configLoader.loadObject(AppConfig._1, Some(AppConfig._2))
+  override def app: Future[JsObject] = configLoader.loadObject(AppConfig._1, Some(AppConfig._2))
 
-  override def profile: Future[Try[JsObject]] = configLoader.loadObject(ProfileConfig._1, Some(ProfileConfig._2))
+  override def profile: Future[JsObject] = configLoader.loadObject(ProfileConfig._1, Some(ProfileConfig._2))
 
-  override def credits: Future[Try[JsObject]] = configLoader.loadObject(CreditsConfig._1, Some(CreditsConfig._2))
+  override def credits: Future[JsObject] = configLoader.loadObject(CreditsConfig._1, Some(CreditsConfig._2))
 
-  override def github: Future[Try[JsObject]] = configLoader.loadObject(GithubConfig._1, Some(GithubConfig._2))
+  override def github: Future[JsObject] = configLoader.loadObject(GithubConfig._1, Some(GithubConfig._2))
 
-  override def mains: Future[Try[JsObject]] = (for {
+  override def mains: Future[JsObject] = (for {
   // Load all the config objects to put together
-    occupationsTry <- configLoader.loadArray(WorkHistoryConfig._1, Some(WorkHistoryConfig._2))
-    projectsTry <- configLoader.loadArray(FeaturedProjectsConfig._1, Some(FeaturedProjectsConfig._2))
-    techSumTry <- configLoader.loadObject(LangsFramesConfig._1, Some(LangsFramesConfig._2))
+    occupations <- configLoader.loadArray(WorkHistoryConfig._1, Some(WorkHistoryConfig._2))
+    projects <- configLoader.loadArray(FeaturedProjectsConfig._1, Some(FeaturedProjectsConfig._2))
+    techSum <- configLoader.loadObject(LangsFramesConfig._1, Some(LangsFramesConfig._2))
     articlesTry <- configLoader.loadArray(ArticlesConfig._1, Some(ArticlesConfig._2))
-  } yield (occupationsTry, projectsTry, techSumTry, articlesTry))
+  } yield (occupations, projects, techSum, articlesTry))
 
-    .map { fut: (Try[JsArray], Try[JsArray], Try[JsObject], Try[JsArray]) =>
+    .map { fut: (JsArray, JsArray, JsObject, JsArray) =>
       val pairs: List[(String, JsValue)] = List(
         "occupations" -> fut._1,
         "projects" -> fut._2,
         "techSummary" -> fut._3,
         "articles" -> fut._4
-      ).map(p => {
-        // if it was successfully loaded, at it, else add null
-        p._2 match {
-          case Success(jsValue) => p._1 -> jsValue
-          case _ => p._1 -> JsNull
-        }
-      })
-      Success(JsObject(pairs))
+      )
+      JsObject(pairs)
     }
 
   /**
@@ -81,12 +75,8 @@ class FileBasedConfigDataService @Inject()(configLoader: ConfigLoader) extends C
     * @tparam T - The type we are converting to.
     * @return - Returns the transformed data.
     */
-  private def getSpecific[T](fileName: String, fallBack: Option[String])(convert: JsValue => T): Future[Try[T]] =
-    configLoader.loadObject(fileName, fallBack) map {
-      case Success(config) => Try({
-        convert(config)
-      })
-      case Failure(t) => Failure(t)
+  private def getSpecific[T](fileName: String, fallBack: Option[String])(convert: JsValue => T): Future[T] =
+    configLoader.loadObject(fileName, fallBack) map { config =>
+      convert(config)
     }
-
 }

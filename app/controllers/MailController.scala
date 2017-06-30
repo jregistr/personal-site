@@ -29,24 +29,20 @@ class MailController @Inject()(mailerService: MailerService, capchaVerifyService
     * @return - Returns a json describing the success of the operation.
     */
   def index(capchaCode: String, name: String, email: String, subject: String, message: String): Action[AnyContent] = Action.async {
-    capchaVerifyService.verify(capchaCode).map {
-      case Success(verified) =>
-        if (verified) {
-          // call to the mailing service to send an email
-          val result: Future[Boolean] = mailerService.sendMail(name, email, subject, message)
-          val send: Future[Result] = result.map(value => {
-            if (value) Ok(succMessage(JsNull)) else BadRequest(failMessage("Did not successfully send message"))
-          })
-          send
-        } else {
-          Future {
-            BadRequest(failMessage("Failed to verify recapcha token"))
-          }
+    capchaVerifyService.verify(capchaCode).map { verified =>
+      if (verified) {
+        val result: Future[Boolean] = mailerService.sendMail(name, email, subject, message)
+        result.map(value => {
+          if (value) Ok(succMessage(JsNull)) else BadRequest(failMessage("Did not successfully send message"))
+        })
+      } else {
+        Future {
+          BadRequest(failMessage("Failed to verify recapcha token"))
         }
-      case Failure(_) => Future {
-        BadRequest(failMessage("recapcha token not verified"))
       }
-    }.flatMap(identity)
+    }.flatMap(identity) recover {
+      case _ => BadRequest(failMessage("Failed to verify recapcha token"))
+    }
   }
 
 }

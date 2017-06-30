@@ -21,13 +21,13 @@ trait ConfigLoader {
     * @param fallBackFileName - The fallback file to load if the first one wasn't found.
     * @return - Returns a [[Future]] containing the a [[Try]] of [[JsObject]].
     */
-  def loadObject(configFileName: String, fallBackFileName: Option[String]): Future[Try[JsObject]] =
+  def loadObject(configFileName: String, fallBackFileName: Option[String]): Future[JsObject] =
     load(configFileName, fallBackFileName)(_.as[JsObject])
 
   /**
     * @see [[ConfigLoader.loadObject]]
     */
-  def loadArray(configFileName: String, fallBackFileName: Option[String]): Future[Try[JsArray]] =
+  def loadArray(configFileName: String, fallBackFileName: Option[String]): Future[JsArray] =
     load(configFileName, fallBackFileName)(_.as[JsArray])
 
   /**
@@ -41,7 +41,7 @@ trait ConfigLoader {
     * @return - The loaded and converted data.
     */
   protected def load[T <: JsValue](configFileName: String, fallBackFileName: Option[String])
-                                  (convert: JsValue => T): Future[Try[T]]
+                                  (convert: JsValue => T): Future[T]
 }
 
 /**
@@ -58,7 +58,7 @@ class JsonConfigLoader @Inject()(akkaSystem: ActorSystem) extends ConfigLoader {
     * @inheritdoc
     */
   override protected def load[T](configFileName: String, fallBackFileName: Option[String] = None)
-                                (convert: JsValue => T): Future[Try[T]] = Future {
+                                (convert: JsValue => T): Future[T] = Future {
 
     // Attempt to load the config file. If it fails, attempt to load the fallback file.
     val configOptionUrl: Try[String] = Try(getClass.getResource(configFileName).getFile) match {
@@ -73,8 +73,8 @@ class JsonConfigLoader @Inject()(akkaSystem: ActorSystem) extends ConfigLoader {
     configOptionUrl match {
       case Success(url) =>
         // If file loading was successful, try to parse and convert the data.
-        Try(convert(Json.parse(new FileInputStream(url))))
-      case f: Failure[_] => Failure(f.exception)
+        convert(Json.parse(new FileInputStream(url)))
+      case Failure(t) => throw t
     }
   }
 }
